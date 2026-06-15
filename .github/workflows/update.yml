@@ -16,7 +16,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v16
       - uses: cachix/cachix-action@v14
         with:
-          name: niri
+          name: niri-epireyn
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - name: Update flake.lock
         id: update
@@ -49,7 +49,7 @@ jobs:
 
 
       - name: Build niri-unstable ahead of time
-        run: nix-store --query --requisites $(nix-store --query --deriver $(nix build --print-out-paths .#niri-unstable)) | cachix push niri
+        run: nix-store --query --requisites $(nix-store --query --deriver $(nix build --print-out-paths .#niri-unstable)) | cachix push niri-epireyn
         if: ${{ steps.update.outputs.pull-request-number }}
 
       - name: Amend commit with human committer; ensure CI will run

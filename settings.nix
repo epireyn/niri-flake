@@ -3,7 +3,6 @@
   kdl,
   lib,
   docs,
-  binds,
   settings,
   ...
 }:
@@ -27,9 +26,6 @@
         enum
         ;
 
-      binds-stable = binds "${inputs.niri-stable}/niri-config/src/binds.rs";
-      binds-unstable = binds "${inputs.niri-unstable}/niri-config/src/binds.rs";
-
       record = record' null;
 
       record' =
@@ -45,7 +41,6 @@
       required = type: mkOption { inherit type; };
       nullable = type: optional (nullOr type) null;
       optional = type: default: mkOption { inherit type default; };
-      readonly = type: value: optional type value // { readOnly = true; };
       docs-only =
         type:
         required (type // { check = _: true; })
@@ -874,32 +869,6 @@
     submodule (
       { options, ... }:
       {
-        # config._module.niri-flake-ordered-record.ordering = lib.mkForce [
-        #   "input"
-        #   "outputs"
-        #   "binds"
-        #   "switch-events"
-        #   "layout"
-
-        #   "workspaces"
-
-        #   "spawn-at-startup"
-        #   "prefer-no-csd"
-        #   "screenshot-path"
-        #   "environment"
-        #   "overview"
-        #   "cursor"
-        #   "xwayland-satellite"
-        #   "clipboard"
-        #   "hotkey-overlay"
-
-        #   "window-rules"
-        #   "layer-rules"
-        #   "animations"
-        #   "gestures"
-
-        #   "debug"
-        # ];
         imports = make-ordered-options [
           {
             switch-events =
@@ -1061,132 +1030,7 @@
                       };
                     }
                   ''}
-                ''
-
-                #   + ''
-                #   There is also a set of functions available under ${fmt.code "config.lib.niri.actions"}.
-
-                #   Usage is like so:
-
-                #   ${fmt.nix-code-block ''
-                #     {
-                #       ${options.binds} = with config.lib.niri.actions; {
-                #         "XF86AudioRaiseVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+";
-                #         "XF86AudioLowerVolume".action = spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-";
-
-                #         "Mod+D".action = spawn "fuzzel";
-                #         "Mod+1".action = focus-workspace 1;
-
-                #         "Mod+Shift+E".action = quit;
-                #         "Mod+Ctrl+Shift+E".action = quit { skip-confirmation=true; };
-
-                #         "Mod+Plus".action = set-column-width "+10%";
-                #       }
-                #     }
-                #   ''}
-
-                #   Keep in mind that each one of these attributes (i.e. the nix bindings) are actually identical functions with different node names, and they can take arbitrarily many arguments. The documentation here is based on the ${fmt.em "real"} acceptable arguments for these actions, but the nix bindings do not enforce this. If you pass the wrong arguments, niri will reject the config file, but evaluation will proceed without problems.
-
-                #   For actions that don't take any arguments, just use the corresponding attribute from ${fmt.code "config.lib.niri.actions"}. They are listed as ${fmt.code "action-name"}. For actions that ${fmt.em "do"} take arguments, they are notated like so: ${fmt.code "λ action-name :: <args>"}, to clarify that they "should" be used as functions. Hopefully, ${fmt.code "<args>"} will be clear enough in most cases, but it's worth noting some nontrivial kinds of arguments:
-
-                #   ${fmt.list [
-                #     ''
-                #       ${fmt.code "size-change"}: This is a special argument type used for some actions by niri. It's a string. \
-                #       It can take either a fixed size as an integer number of logical pixels (${fmt.code ''"480"''}, ${fmt.code ''"1200"''}) or a proportion of your screen as a percentage (${fmt.code ''"30%"''}, ${fmt.code ''"70%"''}) \
-                #       Additionally, it can either be an absolute change (setting the new size of the window), or a relative change (adding or subtracting from its size). \
-                #       Relative size changes are written with a ${fmt.code "+"}/${fmt.code "-"} prefix, and absolute size changes have no prefix.
-                #     ''
-                #     ''
-                #       ${fmt.code "{ field :: type }"}: This means that the action takes a named argument (in kdl, we call it a property). \
-                #       To pass such an argument, you should pass an attrset with the key and value. You can pass many properties in one attrset, or you can pass several attrsets with different properties. \
-                #       Required fields are marked with ${fmt.code "*"} before their name, and if no fields are required, you can use the action without any arguments too (see ${fmt.code "quit"} in the example above). \
-                #       If a field is marked with ${fmt.code "?"}, then omitting it is meaningful. (without ${fmt.code "?"}, it will have a default value)
-                #     ''
-                #     ''
-                #       ${fmt.code "[type]"}: This means that the action takes several arguments as a list. Although you can pass a list directly, it's more common to pass them as separate arguments. \
-                #       ${fmt.code ''spawn ["foo" "bar" "baz"]''} is equivalent to ${fmt.code ''spawn "foo" "bar" "baz"''}.
-                #     ''
-                #   ]}
-
-                #   ${fmt.admonition.tip ''
-                #     You can use partial application to create a spawn command with full support for shell syntax:
-                #     ${fmt.nix-code-block ''
-                #       {
-                #         ${options.binds} = with config.lib.niri.actions; let
-                #           sh = spawn "sh" "-c";
-                #         in {
-                #           "Print".action = sh '''grim -g "$(slurp)" - | wl-copy''';
-                #         };
-                #       }
-                #     ''}
-                #   ''}
-
-                #   ${
-                #     let
-                #       show-bind =
-                #         {
-                #           name,
-                #           params,
-                #           ...
-                #         }:
-                #         let
-                #           is-stable = builtins.any (a: a.name == name) binds-stable;
-                #           is-unstable = builtins.any (a: a.name == name) binds-unstable;
-                #           exclusive =
-                #             if is-stable && is-unstable then
-                #               ""
-                #             else if is-stable then
-                #               " (only on niri-stable)"
-                #             else
-                #               " (only on niri-unstable)";
-                #           type-names = {
-                #             LayoutSwitchTarget = ''"next" | "prev"'';
-                #             WorkspaceReference = "u8 | string";
-                #             SizeChange = "size-change";
-                #             bool = "bool";
-                #             u8 = "u8";
-                #             u16 = "u16";
-                #             String = "string";
-                #           };
-
-                #           type-or =
-                #             rust-name: fallback: type-names.${rust-name} or (lib.warn "unhandled type `${rust-name}`" fallback);
-
-                #           base = content: "${fmt.code content}${exclusive}";
-                #           lambda = args: base "λ ${name} :: ${args}";
-                #         in
-                #         {
-                #           empty = base "${name}";
-                #           arg = lambda (type-or params.type (if params.as-str then "string" else params.type));
-                #           list = lambda "[${type-or params.type params.type}]";
-                #           prop = lambda "{ ${
-                #             lib.optionalString (!params.use-default) "*"
-                #           }${params.field}${lib.optionalString params.none-important "?"} :: ${
-                #             type-names.${params.type} or (lib.warn "unhandled type `${params.type}`" params.type)
-                #           } }";
-                #           unknown = ''
-                #             ${lambda "unknown"}
-
-                #               The code that generates this documentation does not know how to parse the definition:
-                #               ```rs
-                #               ${params.raw-name}(${params.raw})
-                #               ```
-                #           '';
-                #         }
-                #         .${params.kind}
-                #           or (abort "action `${name}` with unhandled kind `${params.kind}` for settings docs");
-                #     in
-                #     fmt.list (
-                #       (map show-bind (
-                #         builtins.filter (
-                #           stable: builtins.all (unstable: stable.name != unstable.name) binds-unstable
-                #         ) binds-stable
-                #       ))
-                #       ++ (map show-bind binds-unstable)
-                #     )
-                #   }
-                # ''
-                ;
+                '';
               };
             };
           }
@@ -2976,6 +2820,99 @@
           }
 
           {
+            recent-windows = ordered-section [
+              {
+                enable = optional types.bool true;
+              }
+              {
+                debounce-ms = nullable types.int // {
+                  description = ''
+                    Delay, in milliseconds, between the window receiving focus and getting "committed" to the recent windows list.
+
+                    When you want to focus some window, you might end up focusing some unrelated windows on the way:
+                    ${fmt.list [
+                      "with keyboard navigation, the windows between your current one and the target one;"
+                      "with ${link-opt options.input.focus-follows-mouse.enable}, the windows you happen to cross with the mouse pointer on the way to the target window. "
+                    ]}
+
+                    The debounce delay prevents those intermediate windows from polluting the recent windows list.
+
+                    Note that some actions, like keyboard input into the target window, will skip this delay and commit the window to the list immediately. This way, the recent windows list stays responsive while not getting polluted too much with unintended windows.
+
+                    If you want windows to appear in recent windows right away, including intermediate windows, you can reduce the delay or set it to zero.
+                  '';
+                };
+              }
+              {
+                open-delay-ms = nullable types.int // {
+                  description = ''
+                    Delay, in milliseconds, between pressing the Alt-Tab bind and the recent windows switcher visually appearing on screen.
+
+                    The switcher is delayed by default so that quickly tapping Alt-Tab to switch windows wouldn't cause annoying fullscreen visual changes.
+                  '';
+                };
+              }
+              {
+                highlight = {
+                  active-color = nullable types.str // {
+                    description = ''
+                      Normal color of the focused window highlight.
+                    '';
+                  };
+                  urgent-color = nullable types.str // {
+                    description = ''
+                      Color of an urgent focused window highlight, also visible in a darker shade on unfocused windows.
+                    '';
+                  };
+                  padding = nullable types.int // {
+                    description = ''
+                      Padding of the highlight around the window preview, in logical pixels.
+                    '';
+                  };
+                  corner-radius = nullable types.int // {
+                    description = ''
+                      Corner radius of the highlight, for rounded corner.
+                    '';
+                  };
+                };
+              }
+              {
+                previews = {
+                  max-height = nullable types.int;
+                  max-scale = nullable types.float;
+                };
+              }
+              {
+                binds =
+                  attrs-record' "recent windows keybind" {
+                    action = required (rename "recent windows action" kdl.types.kdl-leaf) // {
+                      description = ''
+                        The available actions are ${fmt.code "next-window"} and ${fmt.code "previous-window"}. They can optionally have the following properties:
+
+                        ${fmt.list [
+                          "${fmt.code ''filter="app-id"''}: filters the switcher to the windows of the currently selected application, as determined by the Wayland app ID."
+                          "${fmt.code ''scope="all"''}, ${fmt.code ''scope="output"''}, ${fmt.code ''scope="workspace"''}: sets the pre-selected scope when this bind is used to open the recent windows switcher."
+                        ]}
+
+                        Their helper functions can be found under ${fmt.code "config.lib.niri.actions.recent-windows"}
+                      '';
+                    };
+                  }
+                  // {
+                    description = ''
+                      Bindings exclusive to the recent windows view. See ${
+                        fmt.masked-link {
+                          href = "https://niri-wm.github.io/niri/Configuration%3A-Recent-Windows.html#binds";
+                          content = "the official documentation";
+                        }
+                      } for more information.
+                    '';
+                  };
+              }
+            ];
+          }
+
+          {
             debug = attrs kdl.types.kdl-args // {
               description = ''
                 Debug options for niri.
@@ -3535,6 +3472,8 @@
               (lib.mapAttrsToList leaf cfg.action)
             ];
 
+        recent-windows-bind = name: cfg: node name { } [ (lib.mapAttrsToList leaf cfg.action) ];
+
         pointer-tablet' =
           ext: name: cfg:
           plain' name (pointer-tablet cfg (ext cfg));
@@ -3781,5 +3720,24 @@
         ])
 
         (map' plain' (lib.mapAttrsToList leaf) "debug" cfg.debug)
+        (plain' "recent-windows" [
+          (toggle "off" cfg.recent-windows [
+            (nullable leaf "debounce-ms" cfg.recent-windows.debounce-ms)
+            (nullable leaf "open-delay-ms" cfg.recent-windows.open-delay-ms)
+            (plain' "highlight" [
+              (nullable leaf "active-color" cfg.recent-windows.highlight.active-color)
+              (nullable leaf "urgent-color" cfg.recent-windows.highlight.urgent-color)
+              (nullable leaf "padding" cfg.recent-windows.highlight.padding)
+              (nullable leaf "corner-radius" cfg.recent-windows.highlight.corner-radius)
+            ])
+
+            (plain' "previews" [
+
+              (nullable leaf "max-height" cfg.recent-windows.previews.max-height)
+              (nullable leaf "max-scale" cfg.recent-windows.previews.max-scale)
+            ])
+            (plain' "binds" (lib.mapAttrsToList recent-windows-bind cfg.recent-windows.binds))
+          ])
+        ])
       ];
 }

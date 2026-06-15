@@ -15,7 +15,7 @@ You should preferably not be using these outputs directly. Instead, you should u
 
 The latest stable tagged version of niri, along with potential patches.
 
-Currently, this is release [`25.08`](https://github.com/YaLTeR/niri/releases/tag/25.08) with no additional patches.
+Currently, this is release [`25.11`](https://github.com/YaLTeR/niri/releases/tag/25.11) with no additional patches.
 
 
 
@@ -3299,6 +3299,96 @@ Xwayland-satellite integration. Requires unstable niri and unstable xwayland-sat
 Path to the xwayland-satellite binary.
 
 Set it to something like `lib.getExe pkgs.xwayland-satellite-unstable`.
+
+
+<!-- programs.niri.settings.recent-windows -->
+
+## `programs.niri.settings.recent-windows.enable`
+- type: `boolean`
+- default: `true`
+
+
+## `programs.niri.settings.recent-windows.debounce-ms`
+- type: `null or signed integer`
+- default: `null`
+
+Delay, in milliseconds, between the window receiving focus and getting "committed" to the recent windows list.
+
+When you want to focus some window, you might end up focusing some unrelated windows on the way:
+- with keyboard navigation, the windows between your current one and the target one;
+- with [`input.focus-follows-mouse.enable`](#programsnirisettingsinputfocus-follows-mouseenable), the windows you happen to cross with the mouse pointer on the way to the target window.
+
+
+The debounce delay prevents those intermediate windows from polluting the recent windows list.
+
+Note that some actions, like keyboard input into the target window, will skip this delay and commit the window to the list immediately. This way, the recent windows list stays responsive while not getting polluted too much with unintended windows.
+
+If you want windows to appear in recent windows right away, including intermediate windows, you can reduce the delay or set it to zero.
+
+
+## `programs.niri.settings.recent-windows.open-delay-ms`
+- type: `null or signed integer`
+- default: `null`
+
+Delay, in milliseconds, between pressing the Alt-Tab bind and the recent windows switcher visually appearing on screen.
+
+The switcher is delayed by default so that quickly tapping Alt-Tab to switch windows wouldn't cause annoying fullscreen visual changes.
+
+
+## `programs.niri.settings.recent-windows.highlight.active-color`
+- type: `null or string`
+- default: `null`
+
+Normal color of the focused window highlight.
+
+
+## `programs.niri.settings.recent-windows.highlight.corner-radius`
+- type: `null or signed integer`
+- default: `null`
+
+Corner radius of the highlight, for rounded corner.
+
+
+## `programs.niri.settings.recent-windows.highlight.padding`
+- type: `null or signed integer`
+- default: `null`
+
+Padding of the highlight around the window preview, in logical pixels.
+
+
+## `programs.niri.settings.recent-windows.highlight.urgent-color`
+- type: `null or string`
+- default: `null`
+
+Color of an urgent focused window highlight, also visible in a darker shade on unfocused windows.
+
+
+## `programs.niri.settings.recent-windows.previews.max-height`
+- type: `null or signed integer`
+- default: `null`
+
+
+## `programs.niri.settings.recent-windows.previews.max-scale`
+- type: `null or floating point number`
+- default: `null`
+
+
+## `programs.niri.settings.recent-windows.binds`
+- type: `attribute set of (recent windows keybind)`
+
+Bindings exclusive to the recent windows view. See [the official documentation](https://niri-wm.github.io/niri/Configuration%3A-Recent-Windows.html#binds) for more information.
+
+
+## `programs.niri.settings.recent-windows.binds.<name>.action`
+- type: `recent windows action`, which is a `kdl leaf`
+
+The available actions are `next-window` and `previous-window`. They can optionally have the following properties:
+
+- `filter="app-id"`: filters the switcher to the windows of the currently selected application, as determined by the Wayland app ID.
+- `scope="all"`, `scope="output"`, `scope="workspace"`: sets the pre-selected scope when this bind is used to open the recent windows switcher.
+
+
+Their helper functions can be found under `config.lib.niri.actions.recent-windows`
 
 
 ## `programs.niri.settings.debug`

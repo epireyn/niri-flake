@@ -428,13 +428,22 @@
             };
           };
 
-          config.lib.niri = {
-            actions = nixpkgs.lib.mergeAttrsList (
-              map (name: {
-                ${name} = kdl.magic-leaf name;
-              }) (import ./memo-binds.nix)
-            );
-          };
+          config.lib.niri =
+            let
+              mapActions =
+                list:
+                map (name: {
+                  ${name} = kdl.magic-leaf name;
+                }) list;
+            in
+            {
+              actions = nixpkgs.lib.mergeAttrsList (mapActions (import ./memo-binds.nix)) // {
+                recent-windows = mapActions [
+                  "next-window"
+                  "previous-window"
+                ];
+              };
+            };
 
           config.xdg.configFile.niri-config = {
             enable = cfg.finalConfig != null;
@@ -590,7 +599,8 @@
                 modules = [
                   settings.module
                   {
-                    config.programs.niri.settings = { };
+                    config.programs.niri.settings = {
+                    };
                   }
                 ];
               };

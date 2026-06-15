@@ -3,12 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
 
-    niri-stable.url = "github:YaLTeR/niri/v25.08";
+    niri-stable.url = "github:YaLTeR/niri/v25.11";
     niri-unstable.url = "github:YaLTeR/niri";
 
-    xwayland-satellite-stable.url = "github:Supreeeme/xwayland-satellite/v0.7";
+    xwayland-satellite-stable.url = "github:Supreeeme/xwayland-satellite/v0.8.1";
     xwayland-satellite-unstable.url = "github:Supreeeme/xwayland-satellite";
 
     # they do all have flakes, but we specifically want just the Rust sources and no flakes.
@@ -87,7 +87,6 @@
           seatd,
           libinput,
           libxkbcommon,
-          libdisplay-info_0_2 ? libdisplay-info,
           libdisplay-info,
           pango,
           withDbus ? true,
@@ -100,7 +99,6 @@
           # remove param at next release after 25.11 (yes! i know that's not even the stable version provided by this flake right now. i'm Working On It™)
           replace-service-with-usr-bin,
         }:
-        assert libdisplay-info_0_2.version == "0.2.0";
         rustPlatform.buildRustPackage {
           pname = "niri";
           version = package-version src;
@@ -122,7 +120,7 @@
             libglvnd
             seatd
             libinput
-            libdisplay-info_0_2
+            libdisplay-info
             libxkbcommon
             pango
           ]

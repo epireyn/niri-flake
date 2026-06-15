@@ -398,7 +398,7 @@
         }
       );
 
-      formatter = forAllSystems (system: inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forAllSystems (system: inputs.nixpkgs.legacyPackages.${system}.nixfmt);
 
       devShells = forAllSystems (system: {
         default = import ./shell.nix {

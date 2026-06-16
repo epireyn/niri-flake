@@ -244,6 +244,61 @@
         };
       };
 
+      tablet-touch-common = {
+        enable = optional types.bool true;
+        map-to-output = nullable types.str;
+        calibration-matrix =
+          nullable (mkOptionType {
+            name = "matrix";
+            description = "2x3 matrix";
+            check =
+              matrix:
+              builtins.isList matrix
+              && builtins.length matrix == 2
+              && builtins.all (
+                row: builtins.isList row && builtins.length row == 3 && builtins.all builtins.isFloat row
+              ) matrix;
+            merge = lib.mergeUniqueOption {
+              message = "";
+              merge = loc: defs: builtins.concatLists (builtins.head defs).value;
+            };
+          })
+          // {
+            description = ''
+              An augmented calibration matrix for the tablet and touch.
+
+              This is represented in Nix as a 2-list of 3-lists of floats.
+
+              For example:
+              ${fmt.nix-code-block ''
+                {
+                  # 90 degree rotation clockwise
+                  calibration-matrix = [
+                    [ 0.0 -1.0 1.0 ]
+                    [ 1.0  0.0 0.0 ]
+                  ];
+                }
+              ''}
+
+              Further reading:
+              ${fmt.list [
+                (fmt.masked-link {
+                  href = "https://wayland.freedesktop.org/libinput/doc/1.8.2/group__config.html#ga3d9f1b9be10e804e170c4ea455bd1f1b";
+                  content = fmt.code "libinput_device_config_calibration_get_default_matrix()";
+                })
+                (fmt.masked-link {
+                  href = "https://wayland.freedesktop.org/libinput/doc/1.8.2/group__config.html#ga09a798f58cc601edd2797780096e9804";
+                  content = fmt.code "libinput_device_config_calibration_set_matrix()";
+                })
+                (fmt.masked-link {
+                  href = "https://smithay.github.io/smithay/input/struct.Device.html#method.config_calibration_set_matrix";
+                  content = "rustdoc because libinput's web docs are an eyesore";
+                })
+              ]}
+            '';
+          };
+      };
+
       preset-size =
         dimension: object:
         types.attrTag {
@@ -1925,62 +1980,13 @@
                 };
               trackpoint = pointer-tablet-common // basic-pointer false;
               trackball = pointer-tablet-common // basic-pointer false;
-              tablet = pointer-tablet-common // {
-                map-to-output = nullable types.str;
-                map-to-focused-output = nullable types.str;
-                calibration-matrix =
-                  nullable (mkOptionType {
-                    name = "matrix";
-                    description = "2x3 matrix";
-                    check =
-                      matrix:
-                      builtins.isList matrix
-                      && builtins.length matrix == 2
-                      && builtins.all (
-                        row: builtins.isList row && builtins.length row == 3 && builtins.all builtins.isFloat row
-                      ) matrix;
-                    merge = lib.mergeUniqueOption {
-                      message = "";
-                      merge = loc: defs: builtins.concatLists (builtins.head defs).value;
-                    };
-                  })
-                  // {
-                    description = ''
-                      An augmented calibration matrix for the tablet.
-
-                      This is represented in Nix as a 2-list of 3-lists of floats.
-
-                      For example:
-                      ${fmt.nix-code-block ''
-                        {
-                          # 90 degree rotation clockwise
-                          calibration-matrix = [
-                            [ 0.0 -1.0 1.0 ]
-                            [ 1.0  0.0 0.0 ]
-                          ];
-                        }
-                      ''}
-
-                      Further reading:
-                      ${fmt.list [
-                        (fmt.masked-link {
-                          href = "https://wayland.freedesktop.org/libinput/doc/1.8.2/group__config.html#ga3d9f1b9be10e804e170c4ea455bd1f1b";
-                          content = fmt.code "libinput_device_config_calibration_get_default_matrix()";
-                        })
-                        (fmt.masked-link {
-                          href = "https://wayland.freedesktop.org/libinput/doc/1.8.2/group__config.html#ga09a798f58cc601edd2797780096e9804";
-                          content = fmt.code "libinput_device_config_calibration_set_matrix()";
-                        })
-                        (fmt.masked-link {
-                          href = "https://smithay.github.io/smithay/input/struct.Device.html#method.config_calibration_set_matrix";
-                          content = "rustdoc because libinput's web docs are an eyesore";
-                        })
-                      ]}
-                    '';
-                  };
-              };
-              touch.enable = optional types.bool true;
-              touch.map-to-output = nullable types.str;
+              tablet =
+                pointer-tablet-common
+                // tablet-touch-common
+                // {
+                  map-to-focused-output = nullable types.str;
+                };
+              touch = tablet-touch-common;
               warp-mouse-to-focus =
                 let
                   inner = record {

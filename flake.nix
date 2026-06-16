@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
 
-    niri-stable.url = "github:niri-wm/niri/v25.11";
+    niri-stable.url = "github:niri-wm/niri/v26.04";
     niri-unstable.url = "github:niri-wm/niri";
 
     xwayland-satellite-stable.url = "github:Supreeeme/xwayland-satellite/v0.8.1";
@@ -96,8 +96,6 @@
           fetchzip,
           runCommand,
 
-          # remove param at next release after 25.11 (yes! i know that's not even the stable version provided by this flake right now. i'm Working On It™)
-          replace-service-with-usr-bin,
         }:
         rustPlatform.buildRustPackage {
           pname = "niri";
@@ -206,15 +204,9 @@
               mv docs/wiki $doc/share/doc/niri/wiki
             '';
 
-          postFixup =
-            if replace-service-with-usr-bin then
-              ''
-                substituteInPlace $out/lib/systemd/user/niri.service --replace-fail /usr/bin $out/bin
-              ''
-            else
-              ''
-                substituteInPlace $out/lib/systemd/user/niri.service --replace-fail "ExecStart=niri" "ExecStart=$out/bin/niri"
-              '';
+          postFixup = ''
+            substituteInPlace $out/lib/systemd/user/niri.service --replace-fail "ExecStart=niri" "ExecStart=$out/bin/niri"
+          '';
 
           meta = {
             description = "Scrollable-tiling Wayland compositor";
@@ -304,11 +296,9 @@
       make-package-set = pkgs: {
         niri-stable = pkgs.callPackage make-niri {
           src = inputs.niri-stable;
-          replace-service-with-usr-bin = true;
         };
         niri-unstable = pkgs.callPackage make-niri {
           src = inputs.niri-unstable;
-          replace-service-with-usr-bin = false;
         };
         xwayland-satellite-stable = pkgs.callPackage make-xwayland-satellite {
           src = inputs.xwayland-satellite-stable;

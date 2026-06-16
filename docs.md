@@ -233,9 +233,27 @@ Beware that setting [`programs.niri.config`](#programsniriconfig) completely ove
 
 
 ## `programs.niri.settings.includes`
-- type: `list of string`
+- type: `list of (string or (optional include))`
 
 Includes other kdl files into this config. Useful to include dynamic config files or use settings that are not yet defined in this module.
+
+For example:
+
+```nix
+{
+  programs.niri.settings.includes = with config.lib.niri.include; [
+    # Raw string
+    "extra.kdl" 
+
+    # Full attribute set
+    {path = "dynamic.kdl"; optional = true;}
+
+    # Helper functions
+    (optional "dynamic2.kdl")
+  ];
+}
+```
+
 
 
 ## `programs.niri.settings.binds`

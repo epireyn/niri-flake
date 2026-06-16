@@ -433,6 +433,11 @@
                   "previous-window"
                 ];
               };
+
+              include.optional = path: {
+                inherit path;
+                optional = true;
+              };
             };
 
           config.xdg.configFile.niri-config = {

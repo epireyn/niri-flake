@@ -1215,11 +1215,45 @@
       {
         imports = make-ordered-options [
           {
-            includes = list types.str // {
-              description = ''
-                Includes other kdl files into this config. Useful to include dynamic config files or use settings that are not yet defined in this module.
-              '';
-            };
+            includes =
+              list (
+                types.either types.str (
+                  record' "optional include" {
+                    path = required types.str // {
+                      description = "Path to the config file to include";
+                    };
+                    optional = optional types.bool true // {
+                      description = ''
+                        Whether this config file is optional.
+
+                        If ${fmt.code "true"}, niri will silently fail to read ${fmt.code "path"}.
+                      '';
+                    };
+                  }
+                )
+              )
+              // {
+                description = ''
+                  Includes other kdl files into this config. Useful to include dynamic config files or use settings that are not yet defined in this module.
+
+                  For example:
+
+                  ${fmt.nix-code-block ''
+                    {
+                      ${options.includes} = with config.lib.niri.include; [
+                        # Raw string
+                        "extra.kdl" 
+
+                        # Full attribute set
+                        {path = "dynamic.kdl"; optional = true;}
+
+                        # Helper functions
+                        (optional "dynamic2.kdl")
+                      ];
+                    }
+                  ''}
+                '';
+              };
           }
           {
             switch-events =
@@ -3719,9 +3753,19 @@
               (flag' "empty-workspace-above-first" cfg.empty-workspace-above-first)
             ]
           ) "layout";
+
+        include =
+          self:
+          if (lib.isString self) then
+            leaf "include" self
+          else
+            leaf "include" [
+              { inherit (self) optional; }
+              self.path
+            ];
       in
       normalize-nodes [
-        (each cfg.includes (path: leaf "include" path))
+        (each cfg.includes (cfg: include cfg))
         (plain "input" [
           (plain "keyboard" [
             (plain "xkb" [

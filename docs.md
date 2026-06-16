@@ -4098,6 +4098,65 @@ Enabled by default when any other background effect is enabled for performance.
 
 
 
+<!-- programs.niri.settings.window-rules.*.popups -->
+
+## `programs.niri.settings.window-rules.*.popups.background-effect`
+
+
+Background effect applied to popups.
+
+[`window-rules.*.popups.background-effect.xray`](#programsnirisettingswindow-rulespopupsbackground-effectxray) is disabled by default since popups often overlap other windows.
+
+
+## `programs.niri.settings.window-rules.*.popups.background-effect.blur`
+- type: `null or boolean`
+- default: `null`
+
+Whether to force background blur for popups, even though the application does not request it.
+
+## `programs.niri.settings.window-rules.*.popups.background-effect.xray`
+- type: `null or boolean`
+- default: `null`
+
+Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.
+
+Enabled by default when any other background effect is enabled for performance.
+
+> [!warning]
+> Disabling this option is considered experimental due to [limitations](https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental).
+
+
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius`
+- type: `null or (submodule)`
+- default: `null`
+
+The corner radii of the popups in logical pixels.
+
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.bottom-left`
+- type: `floating point number`
+
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.bottom-right`
+- type: `floating point number`
+
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.top-left`
+- type: `floating point number`
+
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.top-right`
+- type: `floating point number`
+
+
+## `programs.niri.settings.window-rules.*.popups.opacity`
+- type: `null or floating point number`
+- default: `null`
+
+Opacity of the popups. It is applied on top of the layer surface's own opacity rule, so setting both will make pop-ups more transparent than the surface.
+
+
 ## `programs.niri.settings.layer-rules`
 - type: `list of (layer rule)`
 
@@ -4370,6 +4429,65 @@ Enabled by default when any other background effect is enabled for performance.
 > [!warning]
 > Disabling this option is considered experimental due to [limitations](https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental).
 
+
+
+<!-- programs.niri.settings.layer-rules.*.popups -->
+
+## `programs.niri.settings.layer-rules.*.popups.background-effect`
+
+
+Background effect applied to popups.
+
+[`layer-rules.*.popups.background-effect.xray`](#programsnirisettingslayer-rulespopupsbackground-effectxray) is disabled by default since popups often overlap other windows.
+
+
+## `programs.niri.settings.layer-rules.*.popups.background-effect.blur`
+- type: `null or boolean`
+- default: `null`
+
+Whether to force background blur for popups, even though the application does not request it.
+
+## `programs.niri.settings.layer-rules.*.popups.background-effect.xray`
+- type: `null or boolean`
+- default: `null`
+
+Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.
+
+Enabled by default when any other background effect is enabled for performance.
+
+> [!warning]
+> Disabling this option is considered experimental due to [limitations](https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental).
+
+
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius`
+- type: `null or (submodule)`
+- default: `null`
+
+The corner radii of the popups in logical pixels.
+
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.bottom-left`
+- type: `floating point number`
+
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.bottom-right`
+- type: `floating point number`
+
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.top-left`
+- type: `floating point number`
+
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.top-right`
+- type: `floating point number`
+
+
+## `programs.niri.settings.layer-rules.*.popups.opacity`
+- type: `null or floating point number`
+- default: `null`
+
+Opacity of the popups. It is applied on top of the layer surface's own opacity rule, so setting both will make pop-ups more transparent than the surface.
 
 
 ## `programs.niri.settings.xwayland-satellite`

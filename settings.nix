@@ -523,6 +523,30 @@
           };
         };
 
+      popups =
+        self:
+        section {
+          geometry-corner-radius = geometry-corner-radius-rule // {
+            description = ''
+              The corner radii of the popups in logical pixels.
+            '';
+          };
+
+          opacity = nullable types.float // {
+            description = ''
+              Opacity of the popups. It is applied on top of the layer surface's own opacity rule, so setting both will make pop-ups more transparent than the surface.
+            '';
+          };
+
+          background-effect = background-effect "popups" // {
+            description = ''
+              Background effect applied to popups.
+
+              ${link-opt (subopts (subopts self).background-effect).xray} is disabled by default since popups often overlap other windows.
+            '';
+          };
+        };
+
       border-rule =
         {
           name,
@@ -2791,6 +2815,9 @@
                   {
                     background-effect = background-effect "window";
                   }
+                  {
+                    popups = popups (subopts options.window-rules).popups;
+                  }
                 ]
               )
               // {
@@ -2886,6 +2913,9 @@
                   }
                   {
                     background-effect = background-effect "layer";
+                  }
+                  {
+                    popups = popups (subopts options.layer-rules).popups;
                   }
                 ]
               )
@@ -3519,6 +3549,12 @@
           (nullable leaf "xray" cfg.xray)
         ]);
 
+        popups = map' plain' (cfg: [
+          (nullable (map' leaf corner-radius) "geometry-corner-radius" cfg.geometry-corner-radius)
+          (nullable leaf "opacity" cfg.opacity)
+          (nullable background-effect "background-effect" cfg.background-effect)
+        ]);
+
         corner-radius = cfg: [
           cfg.top-left
           cfg.top-right
@@ -3804,6 +3840,7 @@
             (nullable leaf "variable-refresh-rate" cfg.variable-refresh-rate)
             (nullable leaf "scroll-factor" cfg.scroll-factor)
             (nullable leaf "tiled-state" cfg.tiled-state)
+            (popups "popups" cfg.popups)
           ])
         ]))
         (each cfg.layer-rules (cfg: [
@@ -3817,6 +3854,7 @@
             (nullable (map' leaf corner-radius) "geometry-corner-radius" cfg.geometry-corner-radius)
             (nullable leaf "place-within-backdrop" cfg.place-within-backdrop)
             (nullable leaf "baba-is-float" cfg.baba-is-float)
+            (popups "popups" cfg.popups)
           ])
         ]))
 

@@ -2635,6 +2635,15 @@ If the final value of this field is null or false, then the window will not open
 If the final value of this field is true, then the window will open in a maximized column.
 
 
+## `programs.niri.settings.window-rules.*.open-maximized-to-edges`
+- type: `null or boolean`
+- default: `null`
+
+Instead of maximizing the column, it tells the window that it is maximized (similarly to clicking on maximizing in the window's title bar).
+
+Read [the doc on maximizing and fullscreen](https://niri-wm.github.io/niri/Fullscreen-and-Maximize.html) for more information.
+
+
 ## `programs.niri.settings.window-rules.*.open-on-output`
 - type: `null or string`
 - default: `null`

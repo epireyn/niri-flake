@@ -2496,6 +2496,18 @@
                         If the final value of this field is true, then the window will open in a maximized column.
                       '';
                     };
+                    open-maximized-to-edges = nullable types.bool // {
+                      description = ''
+                        Instead of maximizing the column, it tells the window that it is maximized (similarly to clicking on maximizing in the window's title bar).
+
+                        Read ${
+                          fmt.masked-link {
+                            href = "https://niri-wm.github.io/niri/Fullscreen-and-Maximize.html";
+                            content = "the doc on maximizing and fullscreen";
+                          }
+                        } for more information.
+                      '';
+                    };
                     open-fullscreen = nullable types.bool // {
                       description = ''
                         Whether to open this window in fullscreen.

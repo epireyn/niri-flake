@@ -562,15 +562,15 @@ If you have [`workspaces.<name>.layout.focus-ring`](#programsnirisettingsworkspa
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.border.enable`
-- type: `boolean`
-- default: `false`
+- type: `null or boolean`
+- default: `null`
 
 Whether to enable the border.
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.border.width`
-- type: `floating point number or signed integer`
-- default: `4`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The width of the border drawn around each window.
 
@@ -607,15 +607,15 @@ If you have [`workspaces.<name>.layout.border`](#programsnirisettingsworkspacesn
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.focus-ring.enable`
-- type: `boolean`
-- default: `true`
+- type: `null or boolean`
+- default: `null`
 
 Whether to enable the focus ring.
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.focus-ring.width`
-- type: `floating point number or signed integer`
-- default: `4`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The width of the focus ring drawn around each focused window.
 
@@ -644,13 +644,13 @@ The color of the focus ring for windows that are requesting attention.
 <!-- programs.niri.settings.workspaces.<name>.layout.shadow -->
 
 ## `programs.niri.settings.workspaces.<name>.layout.shadow.color`
-- type: `string`
-- default: `"#00000070"`
+- type: `null or string`
+- default: `null`
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.shadow.draw-behind-window`
-- type: `boolean`
-- default: `false`
+- type: `null or boolean`
+- default: `null`
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.shadow.enable`
@@ -672,18 +672,18 @@ This behaves like a [CSS box-shadow offset](https://developer.mozilla.org/en-US/
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.shadow.offset.x`
-- type: `floating point number or signed integer`
-- default: `0.000000`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.shadow.offset.y`
-- type: `floating point number or signed integer`
-- default: `5.000000`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.shadow.softness`
-- type: `floating point number or signed integer`
-- default: `30.000000`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The softness/size of the shadow, measured in logical pixels.
 
@@ -691,8 +691,8 @@ This behaves like a [CSS box-shadow blur radius](https://developer.mozilla.org/e
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.shadow.spread`
-- type: `floating point number or signed integer`
-- default: `5.000000`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The spread of the shadow, measured in logical pixels.
 
@@ -893,8 +893,8 @@ This is like `center-focused-column = "always";`, but only for workspaces with a
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.center-focused-column`
-- type: `one of "never", "always", "on-overflow"`
-- default: `"never"`
+- type: `null or one of "never", "always", "on-overflow"`
+- default: `null`
 
 When changing focus, niri can automatically center the focused column.
 
@@ -905,8 +905,8 @@ When changing focus, niri can automatically center the focused column.
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.default-column-display`
-- type: `one of "normal", "tabbed"`
-- default: `"normal"`
+- type: `null or one of "normal", "tabbed"`
+- default: `null`
 
 How windows in columns should be displayed by default.
 
@@ -920,7 +920,8 @@ Also, since a newly created column always contains a single window, you can over
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.default-column-width`
-- type: `{} or attribute-tagged union with choices: fixed, proportion`
+- type: `null or {} or attribute-tagged union with choices: fixed, proportion`
+- default: `null`
 
 The default width for new columns.
 
@@ -1024,8 +1025,8 @@ When this is enabled, there will be an empty workspace above the first workspace
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.gaps`
-- type: `floating point number or signed integer`
-- default: `16`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The gap between windows in the layout, measured in logical pixels.
 
@@ -1043,23 +1044,23 @@ The left and right structs work in a similar way, except the padded space is not
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.struts.bottom`
-- type: `floating point number or signed integer`
-- default: `0`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.struts.left`
-- type: `floating point number or signed integer`
-- default: `0`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.struts.right`
-- type: `floating point number or signed integer`
-- default: `0`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.struts.top`
-- type: `floating point number or signed integer`
-- default: `0`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.workspaces.<name>.name`
@@ -1909,15 +1910,15 @@ If you have [`outputs.<name>.layout.focus-ring`](#programsnirisettingsoutputsnam
 
 
 ## `programs.niri.settings.outputs.<name>.layout.border.enable`
-- type: `boolean`
-- default: `false`
+- type: `null or boolean`
+- default: `null`
 
 Whether to enable the border.
 
 
 ## `programs.niri.settings.outputs.<name>.layout.border.width`
-- type: `floating point number or signed integer`
-- default: `4`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The width of the border drawn around each window.
 
@@ -1954,15 +1955,15 @@ If you have [`outputs.<name>.layout.border`](#programsnirisettingsoutputsnamelay
 
 
 ## `programs.niri.settings.outputs.<name>.layout.focus-ring.enable`
-- type: `boolean`
-- default: `true`
+- type: `null or boolean`
+- default: `null`
 
 Whether to enable the focus ring.
 
 
 ## `programs.niri.settings.outputs.<name>.layout.focus-ring.width`
-- type: `floating point number or signed integer`
-- default: `4`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The width of the focus ring drawn around each focused window.
 
@@ -1991,13 +1992,13 @@ The color of the focus ring for windows that are requesting attention.
 <!-- programs.niri.settings.outputs.<name>.layout.shadow -->
 
 ## `programs.niri.settings.outputs.<name>.layout.shadow.color`
-- type: `string`
-- default: `"#00000070"`
+- type: `null or string`
+- default: `null`
 
 
 ## `programs.niri.settings.outputs.<name>.layout.shadow.draw-behind-window`
-- type: `boolean`
-- default: `false`
+- type: `null or boolean`
+- default: `null`
 
 
 ## `programs.niri.settings.outputs.<name>.layout.shadow.enable`
@@ -2019,18 +2020,18 @@ This behaves like a [CSS box-shadow offset](https://developer.mozilla.org/en-US/
 
 
 ## `programs.niri.settings.outputs.<name>.layout.shadow.offset.x`
-- type: `floating point number or signed integer`
-- default: `0.000000`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.outputs.<name>.layout.shadow.offset.y`
-- type: `floating point number or signed integer`
-- default: `5.000000`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.outputs.<name>.layout.shadow.softness`
-- type: `floating point number or signed integer`
-- default: `30.000000`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The softness/size of the shadow, measured in logical pixels.
 
@@ -2038,8 +2039,8 @@ This behaves like a [CSS box-shadow blur radius](https://developer.mozilla.org/e
 
 
 ## `programs.niri.settings.outputs.<name>.layout.shadow.spread`
-- type: `floating point number or signed integer`
-- default: `5.000000`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The spread of the shadow, measured in logical pixels.
 
@@ -2240,8 +2241,8 @@ This is like `center-focused-column = "always";`, but only for workspaces with a
 
 
 ## `programs.niri.settings.outputs.<name>.layout.center-focused-column`
-- type: `one of "never", "always", "on-overflow"`
-- default: `"never"`
+- type: `null or one of "never", "always", "on-overflow"`
+- default: `null`
 
 When changing focus, niri can automatically center the focused column.
 
@@ -2252,8 +2253,8 @@ When changing focus, niri can automatically center the focused column.
 
 
 ## `programs.niri.settings.outputs.<name>.layout.default-column-display`
-- type: `one of "normal", "tabbed"`
-- default: `"normal"`
+- type: `null or one of "normal", "tabbed"`
+- default: `null`
 
 How windows in columns should be displayed by default.
 
@@ -2267,7 +2268,8 @@ Also, since a newly created column always contains a single window, you can over
 
 
 ## `programs.niri.settings.outputs.<name>.layout.default-column-width`
-- type: `{} or attribute-tagged union with choices: fixed, proportion`
+- type: `null or {} or attribute-tagged union with choices: fixed, proportion`
+- default: `null`
 
 The default width for new columns.
 
@@ -2371,8 +2373,8 @@ When this is enabled, there will be an empty workspace above the first workspace
 
 
 ## `programs.niri.settings.outputs.<name>.layout.gaps`
-- type: `floating point number or signed integer`
-- default: `16`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 The gap between windows in the layout, measured in logical pixels.
 
@@ -2390,23 +2392,23 @@ The left and right structs work in a similar way, except the padded space is not
 
 
 ## `programs.niri.settings.outputs.<name>.layout.struts.bottom`
-- type: `floating point number or signed integer`
-- default: `0`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.outputs.<name>.layout.struts.left`
-- type: `floating point number or signed integer`
-- default: `0`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.outputs.<name>.layout.struts.right`
-- type: `floating point number or signed integer`
-- default: `0`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.outputs.<name>.layout.struts.top`
-- type: `floating point number or signed integer`
-- default: `0`
+- type: `null or floating point number or signed integer`
+- default: `null`
 
 
 ## `programs.niri.settings.outputs.<name>.mode`

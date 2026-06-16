@@ -3037,6 +3037,60 @@
           }
 
           {
+            blur =
+              ordered-section [
+                {
+                  enable = optional types.bool true // {
+                    description = ''
+                      Whether to allow apps to have a blurred background.
+
+                      This has an impact on both requested (through the wayland protocol) and forced (through layer and window rules).
+                    '';
+                  };
+                }
+                {
+                  passes = nullable types.int // {
+                    description = ''
+                      Number of downsample and upsample passes. More passes produce a smoother and larger blur but cost more GPU resources.
+                    '';
+                  };
+                }
+                {
+                  offset = nullable float-or-int // {
+                    description = ''
+                      Pixel offset multiplier of each pass (default is 1). Larger values produce smoother blur at no GPU cost. However, visual artifacts can appear with larger values. The solution is to increase the number of passes as well.
+
+                      Try to increase ${fmt.code "offset"} first, until artifacts appear. If a smoother blur is needed, increment ${fmt.code "passes"} by 1 until the artifacts disappear.
+                    '';
+                  };
+                }
+                {
+                  noise = nullable float-or-int // {
+                    description = ''
+                      Amount of noise to add on top of the blur.
+
+                      This is helpful to reduce color banding artifacts.
+                    '';
+                  };
+                }
+                {
+                  saturation = nullable float-or-int // {
+                    description = ''
+                      Color saturation applied to the blurred background.
+
+                      Values above ${fmt.code "1"} increase saturation; values below ${fmt.code "1"} reduce it.
+                    '';
+                  };
+                }
+              ]
+              // {
+                description = ''
+                  Global blur settings for both the ${fmt.code "ext-background-effect"} wayland protocol and layer or window rules.
+                '';
+              };
+          }
+
+          {
             debug = attrs kdl.types.kdl-args // {
               description = ''
                 Debug options for niri.
@@ -3903,6 +3957,15 @@
               (nullable leaf "max-scale" cfg.recent-windows.previews.max-scale)
             ])
             (plain' "binds" (lib.mapAttrsToList recent-windows-bind cfg.recent-windows.binds))
+          ])
+        ])
+
+        (plain' "blur" [
+          (toggle "off" cfg.blur [
+            (nullable leaf "passes" cfg.blur.passes)
+            (nullable leaf "offset" cfg.blur.offset)
+            (nullable leaf "noise" cfg.blur.noise)
+            (nullable leaf "saturation" cfg.blur.saturation)
           ])
         ])
       ];

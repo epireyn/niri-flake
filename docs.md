@@ -4600,6 +4600,55 @@ The available actions are `next-window` and `previous-window`. They can optional
 Their helper functions can be found under `config.lib.niri.actions.recent-windows`
 
 
+## `programs.niri.settings.blur`
+
+
+Global blur settings for both the `ext-background-effect` wayland protocol and layer or window rules.
+
+
+## `programs.niri.settings.blur.enable`
+- type: `boolean`
+- default: `true`
+
+Whether to allow apps to have a blurred background.
+
+This has an impact on both requested (through the wayland protocol) and forced (through layer and window rules).
+
+
+## `programs.niri.settings.blur.passes`
+- type: `null or signed integer`
+- default: `null`
+
+Number of downsample and upsample passes. More passes produce a smoother and larger blur but cost more GPU resources.
+
+
+## `programs.niri.settings.blur.offset`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Pixel offset multiplier of each pass (default is 1). Larger values produce smoother blur at no GPU cost. However, visual artifacts can appear with larger values. The solution is to increase the number of passes as well.
+
+Try to increase `offset` first, until artifacts appear. If a smoother blur is needed, increment `passes` by 1 until the artifacts disappear.
+
+
+## `programs.niri.settings.blur.noise`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Amount of noise to add on top of the blur.
+
+This is helpful to reduce color banding artifacts.
+
+
+## `programs.niri.settings.blur.saturation`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Color saturation applied to the blurred background.
+
+Values above `1` increase saturation; values below `1` reduce it.
+
+
 ## `programs.niri.settings.debug`
 - type: `attribute set of kdl arguments`
 

@@ -1148,6 +1148,13 @@
       {
         imports = make-ordered-options [
           {
+            includes = list types.str // {
+              description = ''
+                Includes other kdl files into this config. Useful to include dynamic config files or use settings that are not yet defined in this module.
+              '';
+            };
+          }
+          {
             switch-events =
               let
                 switch-bind = record' "niri switch bind" {
@@ -3504,6 +3511,7 @@
         tablet' = pointer-tablet' tablet;
       in
       normalize-nodes [
+        (each cfg.includes (path: leaf "include" path))
         (plain "input" [
           (plain "keyboard" [
             (plain "xkb" [

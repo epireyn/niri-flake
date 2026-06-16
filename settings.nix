@@ -1927,6 +1927,7 @@
               trackball = pointer-tablet-common // basic-pointer false;
               tablet = pointer-tablet-common // {
                 map-to-output = nullable types.str;
+                map-to-focused-output = nullable types.str;
                 calibration-matrix =
                   nullable (mkOptionType {
                     name = "matrix";
@@ -3510,6 +3511,7 @@
           touchy cfg
           ++ [
             (nullable leaf "calibration-matrix" cfg.calibration-matrix)
+            (nullable leaf "map-to-focused-output" cfg.map-to-focused-output)
           ];
 
         touch =

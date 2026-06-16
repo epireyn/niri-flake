@@ -1446,6 +1446,11 @@ Further reading:
 
 
 
+## `programs.niri.settings.input.tablet.map-to-focused-output`
+- type: `null or string`
+- default: `null`
+
+
 ## `programs.niri.settings.input.tablet.map-to-output`
 - type: `null or string`
 - default: `null`

@@ -3509,6 +3509,36 @@
           plain' name (pointer-tablet cfg (ext cfg));
         pointer' = pointer-tablet' pointer;
         tablet' = pointer-tablet' tablet;
+
+        layout = map' plain (cfg: [
+          (leaf "gaps" cfg.gaps)
+          (plain "struts" [
+            (leaf "left" cfg.struts.left)
+            (leaf "right" cfg.struts.right)
+            (leaf "top" cfg.struts.top)
+            (leaf "bottom" cfg.struts.bottom)
+          ])
+          (borderish "focus-ring" cfg.focus-ring)
+          (borderish "border" cfg.border)
+          (nullable leaf "background-color" cfg.background-color)
+          (shadow "shadow" cfg.shadow)
+          (nullable tab-indicator "tab-indicator" cfg.tab-indicator)
+          (plain' "insert-hint" [
+            (toggle "off" cfg.insert-hint [
+              (nullable leaf "color" cfg.insert-hint.display.color or null)
+              (nullable gradient' "gradient" cfg.insert-hint.display.gradient or null)
+            ])
+          ])
+          (preset-sizes "default-column-width" cfg.default-column-width)
+          (preset-sizes "preset-column-widths" cfg.preset-column-widths)
+          (preset-sizes "preset-window-heights" cfg.preset-window-heights)
+          (leaf "center-focused-column" cfg.center-focused-column)
+          (optional-node (cfg.default-column-display != "normal") (
+            leaf "default-column-display" cfg.default-column-display
+          ))
+          (flag' "always-center-single-column" cfg.always-center-single-column)
+          (flag' "empty-workspace-above-first" cfg.empty-workspace-above-first)
+        ]) "layout";
       in
       normalize-nodes [
         (each cfg.includes (path: leaf "include" path))
@@ -3584,7 +3614,7 @@
               (optional-node (cfg.variable-refresh-rate != false) (
                 leaf "variable-refresh-rate" { on-demand = cfg.variable-refresh-rate == "on-demand"; }
               ))
-              (plain' "layout" cfg.layout)
+              (layout cfg.layout)
             ])
           ])
         ]))
@@ -3605,35 +3635,7 @@
           ])
         ])
 
-        (plain "layout" [
-          (leaf "gaps" cfg.layout.gaps)
-          (plain "struts" [
-            (leaf "left" cfg.layout.struts.left)
-            (leaf "right" cfg.layout.struts.right)
-            (leaf "top" cfg.layout.struts.top)
-            (leaf "bottom" cfg.layout.struts.bottom)
-          ])
-          (borderish "focus-ring" cfg.layout.focus-ring)
-          (borderish "border" cfg.layout.border)
-          (nullable leaf "background-color" cfg.layout.background-color)
-          (shadow "shadow" cfg.layout.shadow)
-          (nullable tab-indicator "tab-indicator" cfg.layout.tab-indicator)
-          (plain' "insert-hint" [
-            (toggle "off" cfg.layout.insert-hint [
-              (nullable leaf "color" cfg.layout.insert-hint.display.color or null)
-              (nullable gradient' "gradient" cfg.layout.insert-hint.display.gradient or null)
-            ])
-          ])
-          (preset-sizes "default-column-width" cfg.layout.default-column-width)
-          (preset-sizes "preset-column-widths" cfg.layout.preset-column-widths)
-          (preset-sizes "preset-window-heights" cfg.layout.preset-window-heights)
-          (leaf "center-focused-column" cfg.layout.center-focused-column)
-          (optional-node (cfg.layout.default-column-display != "normal") (
-            leaf "default-column-display" cfg.layout.default-column-display
-          ))
-          (flag' "always-center-single-column" cfg.layout.always-center-single-column)
-          (flag' "empty-workspace-above-first" cfg.layout.empty-workspace-above-first)
-        ])
+        (layout cfg.layout)
 
         (plain "cursor" [
           (leaf "xcursor-theme" cfg.cursor.theme)
@@ -3669,7 +3671,7 @@
         (each' cfg.workspaces (cfg: [
           (node "workspace" cfg.name [
             (nullable leaf "open-on-output" cfg.open-on-output)
-            (plain' "layout" cfg.layout)
+            (layout cfg.layout)
           ])
         ]))
 

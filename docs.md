@@ -4077,6 +4077,27 @@ Takes effect only when the window is on an output with [`outputs.<name>.variable
 - default: `null`
 
 
+<!-- programs.niri.settings.window-rules.*.background-effect -->
+
+## `programs.niri.settings.window-rules.*.background-effect.blur`
+- type: `null or boolean`
+- default: `null`
+
+Whether to force background blur for window, even though the application does not request it.
+
+## `programs.niri.settings.window-rules.*.background-effect.xray`
+- type: `null or boolean`
+- default: `null`
+
+Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.
+
+Enabled by default when any other background effect is enabled for performance.
+
+> [!warning]
+> Disabling this option is considered experimental due to [limitations](https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental).
+
+
+
 ## `programs.niri.settings.layer-rules`
 - type: `list of (layer rule)`
 
@@ -4328,6 +4349,27 @@ This is a natural extension of the April Fools' 2025 feature.
 
 Set to `true` to place the surface into the backdrop visible in the Overview and between workspaces.
 This will only work for background layer surfaces that ignore exclusive zones (typical for wallpaper tools). Layers within the backdrop will ignore all input.
+
+
+<!-- programs.niri.settings.layer-rules.*.background-effect -->
+
+## `programs.niri.settings.layer-rules.*.background-effect.blur`
+- type: `null or boolean`
+- default: `null`
+
+Whether to force background blur for layer, even though the application does not request it.
+
+## `programs.niri.settings.layer-rules.*.background-effect.xray`
+- type: `null or boolean`
+- default: `null`
+
+Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.
+
+Enabled by default when any other background effect is enabled for performance.
+
+> [!warning]
+> Disabling this option is considered experimental due to [limitations](https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental).
+
 
 
 ## `programs.niri.settings.xwayland-satellite`

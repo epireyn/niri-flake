@@ -501,6 +501,28 @@
           inherit description;
         };
 
+      background-effect =
+        rule:
+        section {
+          blur = nullable types.bool // {
+            description = "Whether to force background blur for ${rule}, even though the application does not request it.";
+          };
+          xray = nullable types.bool // {
+            description = ''
+              Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.
+
+              Enabled by default when any other background effect is enabled for performance.
+
+              ${fmt.admonition.warning "Disabling this option is considered experimental due to ${
+                fmt.masked-link {
+                  href = "https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental";
+                  content = "limitations";
+                }
+              }."}
+            '';
+          };
+        };
+
       border-rule =
         {
           name,
@@ -2766,6 +2788,9 @@
                   {
                     tiled-state = nullable types.bool;
                   }
+                  {
+                    background-effect = background-effect "window";
+                  }
                 ]
               )
               // {
@@ -2858,6 +2883,9 @@
                         This is a natural extension of the April Fools' 2025 feature.
                       '';
                     };
+                  }
+                  {
+                    background-effect = background-effect "layer";
                   }
                 ]
               )
@@ -3486,6 +3514,11 @@
           (nullable gradient' "inactive-gradient" cfg.inactive.gradient or null)
         ]);
 
+        background-effect = map' plain' (cfg: [
+          (nullable leaf "blur" cfg.blur)
+          (nullable leaf "xray" cfg.xray)
+        ]);
+
         corner-radius = cfg: [
           cfg.top-left
           cfg.top-right
@@ -3758,6 +3791,7 @@
             (border-rule "border" cfg.border)
             (border-rule "focus-ring" cfg.focus-ring)
             (shadow-rule "shadow" cfg.shadow)
+            (background-effect "background-effect" cfg.background-effect)
             (tab-indicator-rule "tab-indicator" cfg.tab-indicator)
             (nullable leaf "opacity" cfg.opacity)
             (nullable leaf "min-width" cfg.min-width)
@@ -3779,6 +3813,7 @@
             (nullable leaf "opacity" cfg.opacity)
             (nullable leaf "block-out-from" cfg.block-out-from)
             (shadow-rule "shadow" cfg.shadow)
+            (background-effect "background-effect" cfg.background-effect)
             (nullable (map' leaf corner-radius) "geometry-corner-radius" cfg.geometry-corner-radius)
             (nullable leaf "place-within-backdrop" cfg.place-within-backdrop)
             (nullable leaf "baba-is-float" cfg.baba-is-float)

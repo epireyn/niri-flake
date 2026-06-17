@@ -32,7 +32,7 @@ check: fmt
 check-docs: check
     NIX_CONFIG="max-call-depth = 20000" nix eval --quiet --quiet --raw .#lib.internal.docs-markdown > /dev/null
 
-doc: check
+doc:
     NIX_CONFIG="max-call-depth = 20000" nix eval --quiet --quiet --raw .#lib.internal.docs-markdown | sponge docs.md
 
 watch:

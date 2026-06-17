@@ -3,12 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";
 
-    niri-stable.url = "github:YaLTeR/niri/v25.11";
-    niri-unstable.url = "github:YaLTeR/niri";
+    niri-stable.url = "github:niri-wm/niri/v26.04";
+    niri-unstable.url = "github:niri-wm/niri";
 
-    xwayland-satellite-stable.url = "github:Supreeeme/xwayland-satellite/v0.7";
+    xwayland-satellite-stable.url = "github:Supreeeme/xwayland-satellite/v0.8.1";
     xwayland-satellite-unstable.url = "github:Supreeeme/xwayland-satellite";
 
     # they do all have flakes, but we specifically want just the Rust sources and no flakes.
@@ -91,9 +91,6 @@
           withSystemd ? true,
           fetchzip,
           runCommand,
-
-          # remove param at next release after 25.11
-          replace-service-with-usr-bin,
         }:
         assert libdisplay-info_0_2.version == "0.2.0";
         rustPlatform.buildRustPackage {
@@ -204,11 +201,6 @@
             '';
 
           postFixup =
-            if replace-service-with-usr-bin then
-              ''
-                substituteInPlace $out/lib/systemd/user/niri.service --replace-fail /usr/bin $out/bin
-              ''
-            else
               ''
                 substituteInPlace $out/lib/systemd/user/niri.service --replace-fail "ExecStart=niri" "ExecStart=$out/bin/niri"
               '';
@@ -301,11 +293,9 @@
       make-package-set = pkgs: {
         niri-stable = pkgs.callPackage make-niri {
           src = inputs.niri-stable;
-          replace-service-with-usr-bin = true;
         };
         niri-unstable = pkgs.callPackage make-niri {
           src = inputs.niri-unstable;
-          replace-service-with-usr-bin = false;
         };
         xwayland-satellite-stable = pkgs.callPackage make-xwayland-satellite {
           src = inputs.xwayland-satellite-stable;
@@ -424,7 +414,7 @@
         }
       );
 
-      formatter = forAllSystems (system: inputs.nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forAllSystems (system: inputs.nixpkgs.legacyPackages.${system}.nixfmt);
 
       devShells = forAllSystems (system: {
         default = import ./shell.nix {

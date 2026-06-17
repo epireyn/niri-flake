@@ -15,7 +15,7 @@ You should preferably not be using these outputs directly. Instead, you should u
 
 The latest stable tagged version of niri, along with potential patches.
 
-Currently, this is release [`25.11`](https://github.com/YaLTeR/niri/releases/tag/25.11) with no additional patches.
+Currently, this is release [`26.04`](https://github.com/YaLTeR/niri/releases/tag/26.04) with no additional patches.
 
 
 
@@ -28,7 +28,7 @@ To access this package under `pkgs.niri-stable`, you should use [`overlays.niri`
 
 The latest commit to the development branch of niri.
 
-Currently, this is exactly commit [`b7eb8a6`](https://github.com/YaLTeR/niri/tree/b7eb8a635b7f75705808eaed85c016f02ae4fd2d) which was authored on `2026-01-05 07:28:18`.
+Currently, this is exactly commit [`188c530`](https://github.com/YaLTeR/niri/tree/188c5300f7b5229174a9f96db3bc23f90b903926) which was authored on `2026-06-15 16:47:58`.
 
 > [!warning]
 > `niri-unstable` is not a released version, there are no stability guarantees, and it may break your workflow from itme to time.

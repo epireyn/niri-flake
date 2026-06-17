@@ -348,6 +348,7 @@ in
           ./animations.nix
 
           ./overview.nix
+          ./recent-windows.nix
           ./appearance.nix
 
           ./outputs.nix

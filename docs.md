@@ -1704,6 +1704,105 @@ This behaves like a [CSS box-shadow spread radius](https://developer.mozilla.org
 Control how much the workspaces zoom out in the overview. zoom ranges from 0 to 0.75 where lower values make everything smaller.
 
 
+<!-- programs.niri.settings.recent-windows -->
+
+## `programs.niri.settings.recent-windows.enable`
+- type: `null or boolean`
+- default: `null`
+
+
+## `programs.niri.settings.recent-windows.debounce-ms`
+- type: `null or signed integer`
+- default: `null`
+
+ Delay, in milliseconds, between the window receiving focus and getting "committed" to the recent windows list.
+
+When you want to focus some window, you might end up focusing some unrelated windows on the way:
+- with keyboard navigation, the windows between your current one and the target one;
+- with [`input.focus-follows-mouse.enable`](#programsnirisettingsinputfocus-follows-mouseenable), the windows you happen to cross with the mouse pointer on the way to the target window.
+
+
+The debounce delay prevents those intermediate windows from polluting the recent windows list.
+
+Note that some actions, like keyboard input into the target window, will skip this delay and commit the window to the list immediately. This way, the recent windows list stays responsive while not getting polluted too much with unintended windows.
+
+If you want windows to appear in recent windows right away, including intermediate windows, you can reduce the delay or set it to zero.           
+
+
+## `programs.niri.settings.recent-windows.open-delay-ms`
+- type: `null or signed integer`
+- default: `null`
+
+Delay, in milliseconds, between pressing the Alt-Tab bind and the recent windows switcher visually appearing on screen.
+
+The switcher is delayed by default so that quickly tapping Alt-Tab to switch windows wouldn't cause annoying fullscreen visual changes.
+
+
+<!-- programs.niri.settings.recent-windows.highlight -->
+
+## `programs.niri.settings.recent-windows.highlight.active-color`
+- type: `null or string`
+- default: `null`
+
+Normal color of the focused window highlight.
+
+
+## `programs.niri.settings.recent-windows.highlight.urgent-color`
+- type: `null or string`
+- default: `null`
+
+Color of an urgent focused window highlight, also visible in a darker shade on unfocused windows.
+
+
+## `programs.niri.settings.recent-windows.highlight.padding`
+- type: `null or signed integer`
+- default: `null`
+
+Padding of the highlight around the window preview, in logical pixels.
+
+
+## `programs.niri.settings.recent-windows.highlight.corner-radius`
+- type: `null or signed integer`
+- default: `null`
+
+Corner radius of the highlight, for rounded corner.
+
+
+<!-- programs.niri.settings.recent-windows.previews -->
+
+## `programs.niri.settings.recent-windows.previews.max-height`
+- type: `null or signed integer`
+- default: `null`
+
+Maximum height of the window previews. Further limits the size of the previews in order to occupy less space on large monitors.
+
+
+## `programs.niri.settings.recent-windows.previews.max-scale`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Maximum scale of the window previews. Windows cannot be scaled bigger than this value.
+
+
+## `programs.niri.settings.recent-windows.binds`
+- type: `null or (attribute set of (recent windows bindings))`
+- default: `null`
+
+
+## `programs.niri.settings.recent-windows.binds.<name>.action`
+- type: `kdl leaf`
+
+See [`binds.<name>.action`](#programsnirisettingsbindsnameaction) for the expected structures.
+
+The only difference is the accepted actions, being either `next-window` or `previous-window`. Both can be modified with the following attributs:
+
+- `filter="app-id"`: filters the switcher to the windows of the currently selected application, as determined by the Wayland app ID.
+- `scope="all"`, `scope="output"`, `scope="workspace"`: sets the pre-selected scope when this bind is used to open the recent windows switcher.
+
+
+These binds are overriden if they are also used in [`binds`](#programsnirisettingsbinds), and won't have any effect in the recent windows view.
+
+
 <!-- programs.niri.settings.layout -->
 
 ## `programs.niri.settings.layout.background-color`

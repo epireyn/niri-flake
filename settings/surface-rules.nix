@@ -465,6 +465,18 @@ in
                 If the final value of this field is true, then the window will open in a maximized column.
               '';
             };
+            open-maximized-to-edges = nullable types.bool // {
+              description = ''
+                Instead of maximizing the column, it tells the window that it is maximized (similarly to clicking on maximizing in the window's title bar).
+
+                Read ${
+                  fmt.masked-link {
+                    href = "https://niri-wm.github.io/niri/Fullscreen-and-Maximize.html";
+                    content = "the doc on maximizing and fullscreen";
+                  }
+                } for more information.
+              '';
+            };
             open-fullscreen = nullable types.bool // {
               description = ''
                 Whether to open this window in fullscreen.
@@ -510,6 +522,9 @@ in
           render = config: [
             (lib.mkIf (config.open-maximized != null) [
               (kdl.leaf "open-maximized" config.open-maximized)
+            ])
+            (lib.mkIf (config.open-maximized-to-edges != null) [
+              (kdl.leaf "open-maximized-to-edges" config.open-maximized-to-edges)
             ])
             (lib.mkIf (config.open-fullscreen != null) [
               (kdl.leaf "open-fullscreen" config.open-fullscreen)

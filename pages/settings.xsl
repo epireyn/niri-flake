@@ -8,7 +8,7 @@
 
   <xsl:param name="rev"
              select="/options/@rev" />
-  <xsl:param name="repo-base-url">https://github.com/sodiboo/niri-flake/blob</xsl:param>
+  <xsl:param name="repo-base-url">https://github.com/epireyn/niri-flake/blob</xsl:param>
 
   <xsl:template match="/">
     <html lang="en">

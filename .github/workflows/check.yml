@@ -24,7 +24,7 @@ jobs:
         nix_path: nixpkgs=channel:nixos-unstable
     - uses: cachix/cachix-action@v14
       with:
-        name: niri
+        name: niri-epireyn
     - run: nix flake check
   check-docs:
     name: "generated docs match"
@@ -36,7 +36,7 @@ jobs:
         nix_path: nixpkgs=channel:nixos-unstable
     - uses: cachix/cachix-action@v14
       with:
-        name: niri
+        name: niri-epireyn
     - run: |
         # note: docs really do exceed the default call depth limit. as a workaround, increase it.
         export NIX_CONFIG="max-call-depth = 20000"

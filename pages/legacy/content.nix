@@ -172,7 +172,7 @@
 
               By default, this module does the following:
 
-              - It will enable a binary cache managed by me, sodiboo. This helps you avoid building niri from source, which can take a long time in release mode.
+              - It will enable a binary cache managed by me, epireyn. This helps you avoid building niri from source, which can take a long time in release mode.
               - If you have home-manager installed in your NixOS configuration (rather than as a standalone program), this module will automatically import ${
                 fmt.link' [
                   "homeModules"
@@ -193,11 +193,11 @@
                 - type: `boolean`
                 - default: `true`
 
-                Whether or not to enable the binary cache [`niri.cachix.org`](https://niri.cachix.org/) in your nix configuration.
+                Whether or not to enable the binary cache [`niri-epireyn.cachix.org`](https://niri-epireyn.cachix.org/) in your nix configuration.
 
                 Using a binary cache can save you time, by avoiding redundant rebuilds.
 
-                This cache is managed by me, sodiboo, and i use GitHub Actions to automaticaly upload builds of ${pkg-link "niri-stable"} and ${pkg-link "niri-unstable"} (for nixpkgs unstable and stable). By using it, you are trusting me to not upload malicious builds, and as such you may disable it.
+                This cache is managed by me, epireyn, and I use GitHub Actions to automaticaly upload builds of ${pkg-link "niri-stable"} and ${pkg-link "niri-unstable"} (for nixpkgs unstable and stable). By using it, you are trusting me to not upload malicious builds, and as such you may disable it.
 
                 If you do not wish to use this cache, then you may wish to set ${
                   fmt.link' [

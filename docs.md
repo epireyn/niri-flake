@@ -15,7 +15,7 @@ You should preferably not be using these outputs directly. Instead, you should u
 
 The latest stable tagged version of niri, along with potential patches.
 
-Currently, this is release [`26.04`](https://github.com/YaLTeR/niri/releases/tag/26.04) with no additional patches.
+Currently, this is release [`26.04`](https://github.com/niri-wm/niri/releases/tag/26.04) with no additional patches.
 
 
 
@@ -28,7 +28,7 @@ To access this package under `pkgs.niri-stable`, you should use [`overlays.niri`
 
 The latest commit to the development branch of niri.
 
-Currently, this is exactly commit [`188c530`](https://github.com/YaLTeR/niri/tree/188c5300f7b5229174a9f96db3bc23f90b903926) which was authored on `2026-06-15 16:47:58`.
+Currently, this is exactly commit [`188c530`](https://github.com/niri-wm/niri/tree/188c5300f7b5229174a9f96db3bc23f90b903926) which was authored on `2026-06-15 16:47:58`.
 
 > [!warning]
 > `niri-unstable` is not a released version, there are no stability guarantees, and it may break your workflow from itme to time.
@@ -1501,7 +1501,7 @@ Source code for a GLSL shader to use for this animation.
 
 For example, set it to `builtins.readFile ./window-open.glsl` to use a shader from the same directory as your configuration file.
 
-See: https://github.com/YaLTeR/niri/wiki/Configuration:-Animations#custom-shader
+See: https://github.com/niri-wm/niri/wiki/Configuration:-Animations#custom-shader
 
 
 ## `programs.niri.settings.animations.window-open.enable`
@@ -1527,7 +1527,7 @@ Source code for a GLSL shader to use for this animation.
 
 For example, set it to `builtins.readFile ./window-close.glsl` to use a shader from the same directory as your configuration file.
 
-See: https://github.com/YaLTeR/niri/wiki/Configuration:-Animations#custom-shader
+See: https://github.com/niri-wm/niri/wiki/Configuration:-Animations#custom-shader
 
 
 ## `programs.niri.settings.animations.window-close.enable`
@@ -1553,7 +1553,7 @@ Source code for a GLSL shader to use for this animation.
 
 For example, set it to `builtins.readFile ./window-resize.glsl` to use a shader from the same directory as your configuration file.
 
-See: https://github.com/YaLTeR/niri/wiki/Configuration:-Animations#custom-shader
+See: https://github.com/niri-wm/niri/wiki/Configuration:-Animations#custom-shader
 
 
 ## `programs.niri.settings.animations.window-resize.enable`
@@ -2260,7 +2260,7 @@ the bottom edge of the big window is almost entirely yellow, and the top edge of
 ](/assets/relative-to-workspace-view.png "behaviour of relative-to=\"workspace-view\"")
 
 
-these beautiful images are sourced from the release notes for [`v0.1.3`](https://github.com/YaLTeR/niri/releases/tag/v0.1.3)
+these beautiful images are sourced from the release notes for [`v0.1.3`](https://github.com/niri-wm/niri/releases/tag/v0.1.3)
 
 
 ## `<decoration>.gradient.to`

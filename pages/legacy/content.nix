@@ -84,7 +84,7 @@
         builtins.concatMap (
           patch:
           let
-            m = lib.strings.match "${lib.escapeRegex "https://github.com/YaLTeR/niri/commit/"}([0-9a-f]{40})${lib.escapeRegex ".patch"}" patch.url;
+            m = lib.strings.match "${lib.escapeRegex "https://github.com/niri-wm/niri/commit/"}([0-9a-f]{40})${lib.escapeRegex ".patch"}" patch.url;
           in
           if m != null then
             [

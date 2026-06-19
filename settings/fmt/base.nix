@@ -42,13 +42,13 @@ in
       shortRev,
     }:
     fmt.masked-link {
-      href = "https://github.com/YaLTeR/niri/tree/${rev}";
+      href = "https://github.com/niri-wm/niri/tree/${rev}";
       content = fmt.code shortRev;
     };
   link-niri-release =
     version:
     fmt.masked-link {
-      href = "https://github.com/YaLTeR/niri/releases/tag/${version}";
+      href = "https://github.com/niri-wm/niri/releases/tag/${version}";
       content = fmt.code version;
     };
 

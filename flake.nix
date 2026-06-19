@@ -207,7 +207,7 @@
 
           meta = {
             description = "Scrollable-tiling Wayland compositor";
-            homepage = "https://github.com/YaLTeR/niri";
+            homepage = "https://github.com/niri-wm/niri";
             license = nixpkgs.lib.licenses.gpl3Only;
             maintainers = with nixpkgs.lib.maintainers; [ sodiboo ];
             mainProgram = "niri";

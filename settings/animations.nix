@@ -84,7 +84,7 @@ let
 
                   For example, set it to ${fmt.code "builtins.readFile ./${animation-name}.glsl"} to use a shader from the same directory as your configuration file.
 
-                  See: ${fmt.bare-link "https://github.com/YaLTeR/niri/wiki/Configuration:-Animations#custom-shader"}
+                  See: ${fmt.bare-link "https://github.com/niri-wm/niri/wiki/Configuration:-Animations#custom-shader"}
                 '';
               };
             }

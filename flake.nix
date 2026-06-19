@@ -208,7 +208,10 @@
             description = "Scrollable-tiling Wayland compositor";
             homepage = "https://github.com/niri-wm/niri";
             license = nixpkgs.lib.licenses.gpl3Only;
-            maintainers = with nixpkgs.lib.maintainers; [ sodiboo ];
+            maintainers = with nixpkgs.lib.maintainers; [
+              sodiboo
+              epireyn
+            ];
             mainProgram = "niri";
             platforms = nixpkgs.lib.platforms.linux;
           };
@@ -283,7 +286,10 @@
             description = "Rootless Xwayland integration to any Wayland compositor implementing xdg_wm_base";
             homepage = "https://github.com/Supreeeme/xwayland-satellite";
             license = nixpkgs.lib.licenses.mpl20;
-            maintainers = with nixpkgs.lib.maintainers; [ sodiboo ];
+            maintainers = with nixpkgs.lib.maintainers; [
+              sodiboo
+              epireyn
+            ];
             mainProgram = "xwayland-satellite";
             platforms = nixpkgs.lib.platforms.linux;
           };

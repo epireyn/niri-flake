@@ -55,5 +55,5 @@ in
   link-stylix-opt =
     opt: "[`${opt}`](https://danth.github.io/stylix/options/hm.html#${fmt.markdown-anchor opt})";
 
-  link-this-github = path: "https://github.com/sodiboo/niri-flake/blob/${niri-flake-rev}/${path}";
+  link-this-github = path: "https://github.com/epireyn/niri-flake/blob/${niri-flake-rev}/${path}";
 }

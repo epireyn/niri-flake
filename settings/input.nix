@@ -749,7 +749,7 @@ in
           description = ''
             Warp the mouse to the focused window when switching focus.
 
-            Note that there is no way to set ${fmt.code ''enable = false;''}. If any config file enables this, it cannot be disabled by a later file.
+            Note that there is no way to set ${fmt.code "enable = false;"}. If any config file enables this, it cannot be disabled by a later file.
           '';
           default = null;
           type = lib.types.nullOr (record {
@@ -766,7 +766,7 @@ in
                 ]
               );
               description = ''
-                By default, when ${fmt.code ''mode = null;''}, if the mouse is outside of the focused window on the X axis, it will warp to the middle vertical line of the window. Likewise if it is outside the focused window on the Y axis, it will warp to the middle horizontal line. And, if it is outside the window's bounds on both axes, it will warp to the center of the window.
+                By default, when ${fmt.code "mode = null;"}, if the mouse is outside of the focused window on the X axis, it will warp to the middle vertical line of the window. Likewise if it is outside the focused window on the Y axis, it will warp to the middle horizontal line. And, if it is outside the window's bounds on both axes, it will warp to the center of the window.
 
                 When ${fmt.code ''mode = "center-xy";''}, if the mouse is outside the window ${fmt.em "at all"}, it will warp on both axes to the very center of the window.
 
@@ -790,7 +790,7 @@ in
           description = ''
             Focus the window under the mouse when the mouse moves.
 
-            Note that there is no way to set ${fmt.code ''enable = false;''}. If any config file enables this, it cannot be disabled by a later file.
+            Note that there is no way to set ${fmt.code "enable = false;"}. If any config file enables this, it cannot be disabled by a later file.
           '';
 
           default = null;

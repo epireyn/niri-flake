@@ -36,9 +36,9 @@ in
 
   fmt.link' =
     loc:
-    ''<option-link><path>${
+    "<option-link><path>${
       builtins.concatStringsSep "" (map (segment: "<path-segment>${literal segment}</path-segment>") loc)
-    }</path></option-link>'';
+    }</path></option-link>";
 
   fmt.link-opt =
     opt:
@@ -48,11 +48,11 @@ in
   fmt.link-opt-masked =
     opt: text:
     assert opt._type == "option";
-    ''<option-link><path>${
+    "<option-link><path>${
       builtins.concatStringsSep "" (
         map (segment: "<path-segment>${literal segment}</path-segment>") opt.loc
       )
-    }</path><text>${text}</text></option-link>'';
+    }</path><text>${text}</text></option-link>";
 
   fmt.link-opt' = opt: loc: fmt.link-opt-masked opt (fmt.code (lib.showOption loc));
 

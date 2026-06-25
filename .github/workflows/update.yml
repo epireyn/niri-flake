@@ -4,6 +4,10 @@ on:
   schedule:
     - cron: '0 * * * *' # Hourly. We want it to run frequently.
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   lockfile:
     runs-on: ubuntu-latest
@@ -29,7 +33,7 @@ jobs:
             {{ env.GIT_COMMIT_MESSAGE }}
             ```
 
-            sodiboo will now force-push my branch in order for the cachix action to run. This is also an automated action.
+            epireyn will now force-push my branch in order for the cachix action to run. This is also an automated action.
           pr-labels: |
             dependencies
             automated
@@ -38,7 +42,7 @@ jobs:
         # This is workaround to force the cachix action to run after the update-flake-lock action.
         # Normally, it does not occur because the PR is created by github-actions[bot]
         # But here, we force push it with my own token, so the action runs after a push "by me".
-      - name: Checkout repository as sodiboo
+      - name: Checkout repository as epireyn
         if: ${{ steps.update.outputs.pull-request-number }}
         uses: actions/checkout@v4
         with:

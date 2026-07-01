@@ -3688,6 +3688,8 @@ Set [`window-rules.*.clip-to-geometry`](#programsnirisettingswindow-rulesclip-to
 - type: `floating point number`
 
 
+<!-- programs.niri.settings.window-rules.*.background-effect -->
+
 ## `programs.niri.settings.window-rules.*.background-effect.blur`
 - type: `null or boolean`
 - default: `null`
@@ -3698,13 +3700,60 @@ Whether to force background blur for window, even though the application does no
 - type: `null or boolean`
 - default: `null`
 
-Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.
-
-Enabled by default when any other background effect is enabled for performance.
+Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.Enabled by default when any other background effect is enabled for performance.
 
 > [!warning]
 > Disabling this option is considered experimental due to [limitations](https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental).
 
+
+
+## `programs.niri.settings.window-rules.*.popups`
+
+
+Options applied to the window's popups.
+
+<!-- programs.niri.settings.window-rules.*.popups.background-effect -->
+
+## `programs.niri.settings.window-rules.*.popups.background-effect.blur`
+- type: `null or boolean`
+- default: `null`
+
+Whether to force background blur for popups, even though the application does not request it.
+
+## `programs.niri.settings.window-rules.*.popups.background-effect.xray`
+- type: `null or boolean`
+- default: `null`
+
+Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.Disabled by default for popups since they often overlap other windows
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius`
+- type: `null or (submodule)`
+- default: `null`
+
+The corner radii of the window's popups in logical pixels.
+
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.bottom-left`
+- type: `floating point number`
+
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.bottom-right`
+- type: `floating point number`
+
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.top-left`
+- type: `floating point number`
+
+
+## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.top-right`
+- type: `floating point number`
+
+
+## `programs.niri.settings.window-rules.*.popups.opacity`
+- type: `null or floating point number`
+- default: `null`
+
+Opacity of the window's popups, ranging from 0 to 1. It is applied on top of the layer surface's own opacity rule, so setting both will make pop-ups more transparent than the surface.
 
 
 ## `programs.niri.settings.window-rules.*.default-column-width`
@@ -4332,6 +4381,8 @@ The corner radii of the surface layer decorations (shadow) in logical pixels.
 - type: `floating point number`
 
 
+<!-- programs.niri.settings.layer-rules.*.background-effect -->
+
 ## `programs.niri.settings.layer-rules.*.background-effect.blur`
 - type: `null or boolean`
 - default: `null`
@@ -4342,13 +4393,60 @@ Whether to force background blur for layer surface, even though the application 
 - type: `null or boolean`
 - default: `null`
 
-Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.
-
-Enabled by default when any other background effect is enabled for performance.
+Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.Enabled by default when any other background effect is enabled for performance.
 
 > [!warning]
 > Disabling this option is considered experimental due to [limitations](https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental).
 
+
+
+## `programs.niri.settings.layer-rules.*.popups`
+
+
+Options applied to the layer surface's popups.
+
+<!-- programs.niri.settings.layer-rules.*.popups.background-effect -->
+
+## `programs.niri.settings.layer-rules.*.popups.background-effect.blur`
+- type: `null or boolean`
+- default: `null`
+
+Whether to force background blur for popups, even though the application does not request it.
+
+## `programs.niri.settings.layer-rules.*.popups.background-effect.xray`
+- type: `null or boolean`
+- default: `null`
+
+Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.Disabled by default for popups since they often overlap other windows
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius`
+- type: `null or (submodule)`
+- default: `null`
+
+The corner radii of the layer surface's popups in logical pixels.
+
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.bottom-left`
+- type: `floating point number`
+
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.bottom-right`
+- type: `floating point number`
+
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.top-left`
+- type: `floating point number`
+
+
+## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.top-right`
+- type: `floating point number`
+
+
+## `programs.niri.settings.layer-rules.*.popups.opacity`
+- type: `null or floating point number`
+- default: `null`
+
+Opacity of the layer surface's popups, ranging from 0 to 1. It is applied on top of the layer surface's own opacity rule, so setting both will make pop-ups more transparent than the surface.
 
 
 <!-- programs.niri.settings.layer-rules.*.shadow -->

@@ -15,6 +15,7 @@ let
     subopts
     make-ordered-options
     make-rendered-options
+    make-rendered-section
     nullable
     float-or-int
     record
@@ -74,6 +75,71 @@ let
       };
 
       opt-props = lib.filterAttrs (lib.const (value: value != null));
+      geometry-corner-radius =
+        { description }:
+        {
+          options.geometry-corner-radius =
+            nullable (record {
+              top-left = required types.float;
+              top-right = required types.float;
+              bottom-right = required types.float;
+              bottom-left = required types.float;
+            })
+            // {
+              inherit description;
+            };
+
+          render = config: [
+            (lib.mkIf (config.geometry-corner-radius != null) [
+              (kdl.leaf "geometry-corner-radius" [
+                config.geometry-corner-radius.top-left
+                config.geometry-corner-radius.top-right
+                config.geometry-corner-radius.bottom-right
+                config.geometry-corner-radius.bottom-left
+              ])
+            ])
+          ];
+        };
+      background-effect = popups: {
+        options.background-effect = make-rendered-section "background-effect" { partial = true; } [
+          {
+            options.blur = nullable types.bool // {
+              description = "Whether to force background blur for ${
+                if popups then "popups" else surface
+              }, even though the application does not request it.";
+            };
+
+            render = config: lib.optional (config.blur != null) (kdl.leaf "blur" config.blur);
+          }
+          {
+            options.xray = nullable types.bool // {
+              description =
+                "Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window."
+                +
+
+                  (
+                    if popups then
+                      "Disabled by default for popups since they often overlap other windows"
+                    else
+                      ''
+                        Enabled by default when any other background effect is enabled for performance.
+
+                        ${fmt.admonition.warning "Disabling this option is considered experimental due to ${
+                          fmt.masked-link {
+                            href = "https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental";
+                            content = "limitations";
+                          }
+                        }."}
+                      ''
+                  );
+            };
+
+            render = config: lib.optional (config.xray != null) (kdl.leaf "xray" config.xray);
+          }
+        ];
+        render =
+          config: lib.optional (config.background-effect != null) (config.background-effect.rendered);
+      };
     in
     lib.mkOption {
       description = ''
@@ -286,56 +352,41 @@ let
                   ])
                 ];
               }
+              (geometry-corner-radius { description = geometry-corner-radius-description; })
+              (
+                background-effect false
+                // {
+                  description = "Override the background effect options for this ${surface}.";
+                }
+              )
               {
-                options.geometry-corner-radius =
-                  nullable (record {
-                    top-left = required types.float;
-                    top-right = required types.float;
-                    bottom-right = required types.float;
-                    bottom-left = required types.float;
-                  })
+                options.popups =
+                  make-rendered-section "popups" { partial = true; } [
+                    (
+                      background-effect true
+                      // {
+                        description = "Override the background effect options for this ${surface}'s popups.";
+                      }
+                    )
+                    (geometry-corner-radius {
+                      description = ''
+                        The corner radii of the ${surface}'s popups in logical pixels.
+                      '';
+                    })
+                    {
+                      options.opacity = nullable types.float // {
+                        description = ''
+                          Opacity of the ${surface}'s popups, ranging from 0 to 1. It is applied on top of the layer surface's own opacity rule, so setting both will make pop-ups more transparent than the surface.
+                        '';
+                      };
+                      render = config: lib.optional (config.opacity != null) (kdl.leaf "opacity" config.opacity);
+                    }
+                  ]
                   // {
-                    description = geometry-corner-radius-description;
+                    description = "Options applied to the ${surface}'s popups.";
                   };
-
                 render = config: [
-                  (lib.mkIf (config.geometry-corner-radius != null) [
-                    (kdl.leaf "geometry-corner-radius" [
-                      config.geometry-corner-radius.top-left
-                      config.geometry-corner-radius.top-right
-                      config.geometry-corner-radius.bottom-right
-                      config.geometry-corner-radius.bottom-left
-                    ])
-                  ])
-                ];
-              }
-              {
-                options.background-effect = {
-                  blur = nullable types.bool // {
-                    description = "Whether to force background blur for ${surface}, even though the application does not request it.";
-                  };
-                  xray = nullable types.bool // {
-                    description = ''
-                      Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.
-
-                      Enabled by default when any other background effect is enabled for performance.
-
-                      ${fmt.admonition.warning "Disabling this option is considered experimental due to ${
-                        fmt.masked-link {
-                          href = "https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental";
-                          content = "limitations";
-                        }
-                      }."}
-                    '';
-                  };
-                };
-                render = config: [
-                  (lib.mkIf (config.background-effect != null) [
-                    (kdl.plain "background-effect" [
-                      (lib.mkIf (config.background-effect.blur != null) (kdl.leaf "blur" config.background-effect.blur))
-                      (lib.mkIf (config.background-effect.xray != null) (kdl.leaf "xray" config.background-effect.xray))
-                    ])
-                  ])
+                  (lib.mkIf (config.popups != null) [ config.popups.rendered ])
                 ];
               }
               properties

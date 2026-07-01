@@ -1,6 +1,15 @@
 {
   description = "A scrollable-tiling Wayland compositor.";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://niri-epireyn.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "niri-epireyn.cachix.org-1:tlVyFN7CtsDT+ZcLPS+ekFWeT1X6X4OqvWqbBMyIzFA="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-26.05";

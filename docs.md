@@ -3662,7 +3662,7 @@ Note that this is applied in addition to the opacity set by the client. Setting 
 
 
 ## `programs.niri.settings.window-rules.*.geometry-corner-radius`
-- type: `null or (submodule)`
+- type: `null or floating point number or (submodule)`
 - default: `null`
 
 The corner radii of the window decorations (border, focus ring, and shadow) in logical pixels.
@@ -3670,22 +3670,6 @@ The corner radii of the window decorations (border, focus ring, and shadow) in l
 By default, the actual window surface will be unaffected by this.
 
 Set [`window-rules.*.clip-to-geometry`](#programsnirisettingswindow-rulesclip-to-geometry) to true to clip the window to its visual geometry, i.e. apply the corner radius to the window surface itself.
-
-
-## `programs.niri.settings.window-rules.*.geometry-corner-radius.bottom-left`
-- type: `floating point number`
-
-
-## `programs.niri.settings.window-rules.*.geometry-corner-radius.bottom-right`
-- type: `floating point number`
-
-
-## `programs.niri.settings.window-rules.*.geometry-corner-radius.top-left`
-- type: `floating point number`
-
-
-## `programs.niri.settings.window-rules.*.geometry-corner-radius.top-right`
-- type: `floating point number`
 
 
 <!-- programs.niri.settings.window-rules.*.background-effect -->
@@ -3727,26 +3711,10 @@ Whether to force background blur for popups, even though the application does no
 Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.Disabled by default for popups since they often overlap other windows
 
 ## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius`
-- type: `null or (submodule)`
+- type: `null or floating point number or (submodule)`
 - default: `null`
 
 The corner radii of the window's popups in logical pixels.
-
-
-## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.bottom-left`
-- type: `floating point number`
-
-
-## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.bottom-right`
-- type: `floating point number`
-
-
-## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.top-left`
-- type: `floating point number`
-
-
-## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius.top-right`
-- type: `floating point number`
 
 
 ## `programs.niri.settings.window-rules.*.popups.opacity`
@@ -4359,26 +4327,10 @@ Note that this is applied in addition to the opacity set by the client. Setting 
 
 
 ## `programs.niri.settings.layer-rules.*.geometry-corner-radius`
-- type: `null or (submodule)`
+- type: `null or floating point number or (submodule)`
 - default: `null`
 
 The corner radii of the surface layer decorations (shadow) in logical pixels.
-
-
-## `programs.niri.settings.layer-rules.*.geometry-corner-radius.bottom-left`
-- type: `floating point number`
-
-
-## `programs.niri.settings.layer-rules.*.geometry-corner-radius.bottom-right`
-- type: `floating point number`
-
-
-## `programs.niri.settings.layer-rules.*.geometry-corner-radius.top-left`
-- type: `floating point number`
-
-
-## `programs.niri.settings.layer-rules.*.geometry-corner-radius.top-right`
-- type: `floating point number`
 
 
 <!-- programs.niri.settings.layer-rules.*.background-effect -->
@@ -4420,26 +4372,10 @@ Whether to force background blur for popups, even though the application does no
 Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.Disabled by default for popups since they often overlap other windows
 
 ## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius`
-- type: `null or (submodule)`
+- type: `null or floating point number or (submodule)`
 - default: `null`
 
 The corner radii of the layer surface's popups in logical pixels.
-
-
-## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.bottom-left`
-- type: `floating point number`
-
-
-## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.bottom-right`
-- type: `floating point number`
-
-
-## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.top-left`
-- type: `floating point number`
-
-
-## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius.top-right`
-- type: `floating point number`
 
 
 ## `programs.niri.settings.layer-rules.*.popups.opacity`

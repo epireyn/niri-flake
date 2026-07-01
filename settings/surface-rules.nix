@@ -79,24 +79,31 @@ let
         { description }:
         {
           options.geometry-corner-radius =
-            nullable (record {
-              top-left = required types.float;
-              top-right = required types.float;
-              bottom-right = required types.float;
-              bottom-left = required types.float;
-            })
+            nullable (
+              types.either types.float (record {
+                top-left = required types.float;
+                top-right = required types.float;
+                bottom-right = required types.float;
+                bottom-left = required types.float;
+              })
+            )
             // {
               inherit description;
             };
 
           render = config: [
             (lib.mkIf (config.geometry-corner-radius != null) [
-              (kdl.leaf "geometry-corner-radius" [
-                config.geometry-corner-radius.top-left
-                config.geometry-corner-radius.top-right
-                config.geometry-corner-radius.bottom-right
-                config.geometry-corner-radius.bottom-left
-              ])
+              (kdl.leaf "geometry-corner-radius" (
+                if (lib.isAttrs config.geometry-corner-radius) then
+                  [
+                    config.geometry-corner-radius.top-left
+                    config.geometry-corner-radius.top-right
+                    config.geometry-corner-radius.bottom-right
+                    config.geometry-corner-radius.bottom-left
+                  ]
+                else
+                  config.geometry-corner-radius
+              ))
             ])
           ];
         };

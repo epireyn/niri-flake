@@ -355,6 +355,7 @@ in
           ./workspaces.nix
           ./surface-rules.nix
 
+          ./blur.nix
           ./misc.nix
 
           ./debug.nix

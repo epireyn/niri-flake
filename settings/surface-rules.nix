@@ -309,6 +309,35 @@ let
                   ])
                 ];
               }
+              {
+                options.background-effect = {
+                  blur = nullable types.bool // {
+                    description = "Whether to force background blur for ${surface}, even though the application does not request it.";
+                  };
+                  xray = nullable types.bool // {
+                    description = ''
+                      Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.
+
+                      Enabled by default when any other background effect is enabled for performance.
+
+                      ${fmt.admonition.warning "Disabling this option is considered experimental due to ${
+                        fmt.masked-link {
+                          href = "https://niri-wm.github.io/niri/Window-Effects.html#non-xray-effects-experimental";
+                          content = "limitations";
+                        }
+                      }."}
+                    '';
+                  };
+                };
+                render = config: [
+                  (lib.mkIf (config.background-effect != null) [
+                    (kdl.plain "background-effect" [
+                      (lib.mkIf (config.background-effect.blur != null) (kdl.leaf "blur" config.background-effect.blur))
+                      (lib.mkIf (config.background-effect.xray != null) (kdl.leaf "xray" config.background-effect.xray))
+                    ])
+                  ])
+                ];
+              }
               properties
               {
                 options.baba-is-float = nullable types.bool // {
@@ -634,6 +663,7 @@ in
             ])
           ];
         }
+
       ];
     };
     render = config: map (r: r.rendered) config.window-rules;

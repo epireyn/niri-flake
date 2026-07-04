@@ -3691,6 +3691,24 @@ Whether to see the wallpaper through overlapping windows. It computes the backgr
 
 
 
+## `programs.niri.settings.window-rules.*.background-effect.saturation`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Color saturation of the background (0 is desaturated, 1 is normal, 2 is 200% saturation).
+
+Overrides [`blur.saturation`](#programsnirisettingsblursaturation) for this window.
+
+
+## `programs.niri.settings.window-rules.*.background-effect.noise`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Amount of noise to add on top of the blur.
+
+Overrides [`blur.noise`](#programsnirisettingsblurnoise) for this window.
+
+
 ## `programs.niri.settings.window-rules.*.popups`
 
 
@@ -3709,6 +3727,24 @@ Whether to force background blur for popups, even though the application does no
 - default: `null`
 
 Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.Disabled by default for popups since they often overlap other windows
+
+## `programs.niri.settings.window-rules.*.popups.background-effect.saturation`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Color saturation of the background (0 is desaturated, 1 is normal, 2 is 200% saturation).
+
+Overrides [`blur.saturation`](#programsnirisettingsblursaturation) for this window.
+
+
+## `programs.niri.settings.window-rules.*.popups.background-effect.noise`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Amount of noise to add on top of the blur.
+
+Overrides [`blur.noise`](#programsnirisettingsblurnoise) for this window.
+
 
 ## `programs.niri.settings.window-rules.*.popups.geometry-corner-radius`
 - type: `null or floating point number or (submodule)`
@@ -4352,6 +4388,24 @@ Whether to see the wallpaper through overlapping windows. It computes the backgr
 
 
 
+## `programs.niri.settings.layer-rules.*.background-effect.saturation`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Color saturation of the background (0 is desaturated, 1 is normal, 2 is 200% saturation).
+
+Overrides [`blur.saturation`](#programsnirisettingsblursaturation) for this layer surface.
+
+
+## `programs.niri.settings.layer-rules.*.background-effect.noise`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Amount of noise to add on top of the blur.
+
+Overrides [`blur.noise`](#programsnirisettingsblurnoise) for this layer surface.
+
+
 ## `programs.niri.settings.layer-rules.*.popups`
 
 
@@ -4370,6 +4424,24 @@ Whether to force background blur for popups, even though the application does no
 - default: `null`
 
 Whether to see the wallpaper through overlapping windows. It computes the background blur once and applies it to all windows instead of computing the blur for each window.Disabled by default for popups since they often overlap other windows
+
+## `programs.niri.settings.layer-rules.*.popups.background-effect.saturation`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Color saturation of the background (0 is desaturated, 1 is normal, 2 is 200% saturation).
+
+Overrides [`blur.saturation`](#programsnirisettingsblursaturation) for this layer surface.
+
+
+## `programs.niri.settings.layer-rules.*.popups.background-effect.noise`
+- type: `null or floating point number or signed integer`
+- default: `null`
+
+Amount of noise to add on top of the blur.
+
+Overrides [`blur.noise`](#programsnirisettingsblurnoise) for this layer surface.
+
 
 ## `programs.niri.settings.layer-rules.*.popups.geometry-corner-radius`
 - type: `null or floating point number or (submodule)`

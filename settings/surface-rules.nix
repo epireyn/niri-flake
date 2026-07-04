@@ -143,6 +143,28 @@ let
 
             render = config: lib.optional (config.xray != null) (kdl.leaf "xray" config.xray);
           }
+          {
+            options.saturation = nullable float-or-int // {
+              description = ''
+                Color saturation of the background (0 is desaturated, 1 is normal, 2 is 200% saturation).
+
+                Overrides ${fmt.link-opt (subopts toplevel-options.blur).saturation} for this ${surface}.
+              '';
+            };
+
+            render = config: lib.optional (config.saturation != null) (kdl.leaf "saturation" config.saturation);
+          }
+          {
+            options.noise = nullable float-or-int // {
+              description = ''
+                Amount of noise to add on top of the blur.
+
+                Overrides ${fmt.link-opt (subopts toplevel-options.blur).noise} for this ${surface}.
+              '';
+            };
+
+            render = config: lib.optional (config.noise != null) (kdl.leaf "noise" config.noise);
+          }
         ];
         render =
           config: lib.optional (config.background-effect != null) (config.background-effect.rendered);

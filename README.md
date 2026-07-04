@@ -1,4 +1,4 @@
-**This repo is a fork of [sodiboo's work]** in an attempt to keep the module up-to-date.
+**This repo is a fork of [sodiboo's work](https://github.com/sodiboo/niri-flake)** in an attempt to keep the module up-to-date.
 
 Please contact me through issues instead of the original author.
 

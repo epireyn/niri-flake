@@ -21,6 +21,7 @@ let
     float-or-int
     record
     optional
+    unstable-note
     ;
 
   libinput-anchor-for-header = lib.flip lib.pipe [
@@ -732,7 +733,31 @@ in
             );
             trackpoint = pointer-like-section "trackpoint" (basic-pointer false);
             trackball = pointer-like-section "trackball" (basic-pointer false);
-            tablet = pointer-like-section "tablet" (chirality ++ absolute-position);
+            tablet = pointer-like-section "tablet" (
+              chirality
+              ++ absolute-position
+              ++ [
+                {
+                  options.map-to-focused-output = optional types.bool false // {
+                    description = "Maps the tablet to the focused output, taking precedence over ${fmt.code "map-to-output"}";
+                  };
+                  render = config: lib.optional (config.map-to-focused-output) (kdl.leaf "map-to-focused-output" [ ]);
+                }
+                {
+                  options.map-to-focused-window = optional types.bool false // {
+                    description = ''
+                      Maps the tablet to the focused window's geometry, takes precedence over ${fmt.code "map-to-focused-output"} and ${fmt.code "map-to-output"}. Falls back to those when no window is focused (for example, in the overview).
+
+                      When the tablet is also mapped to a specific output via ${fmt.code "map-to-output"}, the current option maps the tablet to the active window on that output. If the tablet isn't mapped to any specific output, it will map the tablet to the current focused window regardless of where it is.
+
+                      ${unstable-note}
+                    '';
+                  };
+
+                  render = config: lib.optional (config.map-to-focused-window) (kdl.leaf "map-to-focused-window" [ ]);
+                }
+              ]
+            );
             touch = pointer-like-section "touch" (absolute-position);
           };
         render = config: [

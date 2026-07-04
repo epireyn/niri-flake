@@ -276,6 +276,7 @@ let
         optional
         rename-warning
         obsolete-warning
+        unstable-note
         ;
     };
     appearance = import ./appearance args;

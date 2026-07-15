@@ -1596,6 +1596,21 @@ See: https://github.com/niri-wm/niri/wiki/Configuration:-Animations#custom-shade
 - default: `null`
 
 
+## `programs.niri.settings.animations.recent-windows-close`
+- type: `null or (submodule)`
+- default: `null`
+
+
+## `programs.niri.settings.animations.recent-windows-close.enable`
+- type: `boolean`
+- default: `true`
+
+
+## `programs.niri.settings.animations.recent-windows-close.kind`
+- type: `null or`[`<animation-kind>`](#animation-kind)
+- default: `null`
+
+
 ## `<animation-kind>`
 - type: `attribute-tagged union with choices: easing, spring`
 

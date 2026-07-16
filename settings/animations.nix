@@ -156,6 +156,7 @@ in
       (make-animation-option "window-resize" { has-shader = true; })
       (make-animation-option "screenshot-ui-open" { })
       (make-animation-option "overview-open-close" { })
+      (make-animation-option "recent-windows-close" { })
       {
         options."<animation-kind>" = docs-only animation-kind // {
           override-loc = lib.const [ "<animation-kind>" ];

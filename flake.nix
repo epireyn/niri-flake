@@ -87,7 +87,7 @@
           seatd,
           libinput,
           libxkbcommon,
-          libdisplay-info,
+          libdisplay-info_0_3,
           pango,
           withDbus ? true,
           withDinit ? false,
@@ -118,7 +118,7 @@
             libglvnd
             seatd
             libinput
-            libdisplay-info
+            libdisplay-info_0_3
             libxkbcommon
             pango
           ]

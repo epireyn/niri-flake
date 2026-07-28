@@ -87,6 +87,7 @@
           seatd,
           libinput,
           libxkbcommon,
+          libdisplay-info_0_3 ? libdisplay-info,
           libdisplay-info,
           pango,
           withDbus ? true,
@@ -97,6 +98,7 @@
           runCommand,
 
         }:
+        assert libdisplay-info_0_3.version == "0.3.0";
         rustPlatform.buildRustPackage {
           pname = "niri";
           version = package-version src;
@@ -118,7 +120,7 @@
             libglvnd
             seatd
             libinput
-            libdisplay-info
+            libdisplay-info_0_3
             libxkbcommon
             pango
           ]

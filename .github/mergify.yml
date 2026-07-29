@@ -2,6 +2,7 @@ pull_request_rules:
   - name: "merge when finished building"
     conditions:
       - "author=github-actions[bot]"
+      - "#check-failure = 0"
     actions:
       merge:
         method: rebase

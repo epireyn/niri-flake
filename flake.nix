@@ -447,6 +447,8 @@
             target = "niri/config.kdl";
             source = validated-config-for pkgs cfg.package cfg.finalConfig;
           };
+
+          disabledModules = [ "services/window-managers/niri.nix" ];
         };
       nixosModules.niri =
         {

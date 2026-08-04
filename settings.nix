@@ -2259,6 +2259,7 @@
                   window-resize.has-shader = true;
                   screenshot-ui-open.has-shader = false;
                   overview-open-close.has-shader = false;
+                  recent-windows-close.has-shader = false;
                 };
               in
               ordered-section [

@@ -2886,6 +2886,13 @@
                   ];
                 };
 
+                layers = types.enum [
+                  "background"
+                  "bottom"
+                  "top"
+                  "overlay"
+                ];
+
                 layer-match = ordered-record' "match rule" [
                   {
                     namespace = nullable regex // {
@@ -2899,6 +2906,13 @@
                   {
                     at-startup = nullable types.bool // {
                       description = layer-rule-descriptions.match-at-startup;
+                    };
+                  }
+                  {
+                    layer = nullable layers // {
+                      description = ''
+                        An enum specifiying a layer-shell layer to match. Avaliable options "background", "bottom", "top", "overlay".
+                      '';
                     };
                   }
                 ];

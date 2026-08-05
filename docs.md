@@ -4285,6 +4285,13 @@ All layer surfaces have a namespace set once at creation. When this rule is non-
 When true, this rule will match layer surfaces opened within the first 60 seconds of niri starting up. When false, this rule will match layer surfaces opened *more than* 60 seconds after niri started up. This is useful for applying different rules to layer surfaces opened from [`spawn-at-startup`](#programsnirisettingsspawn-at-startup) versus those opened later.
 
 
+## `programs.niri.settings.layer-rules.*.matches.*.layer`
+- type: `null or one of "background", "bottom", "top", "overlay"`
+- default: `null`
+
+An enum specifiying a layer-shell layer to match. Avaliable options "background", "bottom", "top", "overlay".
+
+
 ## `programs.niri.settings.layer-rules.*.excludes`
 - type: `list of (match rule)`
 
@@ -4309,6 +4316,13 @@ All layer surfaces have a namespace set once at creation. When this rule is non-
 - default: `null`
 
 When true, this rule will match layer surfaces opened within the first 60 seconds of niri starting up. When false, this rule will match layer surfaces opened *more than* 60 seconds after niri started up. This is useful for applying different rules to layer surfaces opened from [`spawn-at-startup`](#programsnirisettingsspawn-at-startup) versus those opened later.
+
+
+## `programs.niri.settings.layer-rules.*.excludes.*.layer`
+- type: `null or one of "background", "bottom", "top", "overlay"`
+- default: `null`
+
+An enum specifiying a layer-shell layer to match. Avaliable options "background", "bottom", "top", "overlay".
 
 
 ## `programs.niri.settings.layer-rules.*.block-out-from`

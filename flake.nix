@@ -183,6 +183,7 @@
         (builtins.mapAttrs (name: package: {
           type = "app";
           program = nixpkgs.lib.getExe package;
+          inherit (package) meta;
         }) (make-package-set inputs.nixpkgs.legacyPackages.${system}))
         // {
           default = self.apps.${system}.niri-stable;

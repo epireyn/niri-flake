@@ -4289,7 +4289,7 @@ When true, this rule will match layer surfaces opened within the first 60 second
 - type: `null or one of "background", "bottom", "top", "overlay"`
 - default: `null`
 
-An enum specifiying a layer-shell layer to match. Avaliable options "background", "bottom", "top", "overlay".
+Matches surfaces on this layer-shell layer.
 
 
 ## `programs.niri.settings.layer-rules.*.excludes`
@@ -4322,7 +4322,7 @@ When true, this rule will match layer surfaces opened within the first 60 second
 - type: `null or one of "background", "bottom", "top", "overlay"`
 - default: `null`
 
-An enum specifiying a layer-shell layer to match. Avaliable options "background", "bottom", "top", "overlay".
+Matches surfaces on this layer-shell layer.
 
 
 ## `programs.niri.settings.layer-rules.*.block-out-from`

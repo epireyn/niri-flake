@@ -2911,7 +2911,7 @@
                   {
                     layer = nullable layers // {
                       description = ''
-                        An enum specifiying a layer-shell layer to match. Avaliable options "background", "bottom", "top", "overlay".
+                        Matches surfaces on this layer-shell layer.
                       '';
                     };
                   }

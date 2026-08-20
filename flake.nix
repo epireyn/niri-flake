@@ -8,7 +8,7 @@
     niri-stable.url = "github:niri-wm/niri/v26.04";
     niri-unstable.url = "github:niri-wm/niri";
 
-    xwayland-satellite-stable.url = "github:Supreeeme/xwayland-satellite/v0.8.1";
+    xwayland-satellite-stable.url = "github:Supreeeme/xwayland-satellite/v0.8.2";
     xwayland-satellite-unstable.url = "github:Supreeeme/xwayland-satellite";
 
     # they do all have flakes, but we specifically want just the Rust sources and no flakes.

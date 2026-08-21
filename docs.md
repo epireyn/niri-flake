@@ -3681,6 +3681,22 @@ The height of the window in logical pixels
 The height of the window as a proportion of the screen's height
 
 
+## `programs.niri.settings.window-rules.*.on-xdg-activate`
+- type: `null or one of "ignore", "set-urgent", "focus"`
+- default: `null`
+
+What to do when this window requests activation through [xdg activation](https://wayland.app/protocols/xdg-activation-v1).
+
+- `ignore`: Do nothing; neither focus the window nor mark it urgent.
+- `set-urgent`: Always mark the window urgent instead of focusing it.
+- `focus`: Always focus the window, even for activation requests without a serial.
+
+
+When this option is null, niri chooses between focusing the window and marking it urgent based on the serial that the application provides when creating the activation token. Requests with a valid serial focus the target window, while requests without a serial mark it urgent.
+
+Requests with a set but invalid serial are always ignored. You can change this behavior with the [`honor-xdg-activation-with-invalid-serial`](https://niri-wm.github.io/niri/Configuration%3A-Debug-Options.html#honor-xdg-activation-with-invalid-serial) debug flag.
+
+
 ## `programs.niri.settings.window-rules.*.open-floating`
 - type: `null or boolean`
 - default: `null`

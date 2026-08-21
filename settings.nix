@@ -2691,6 +2691,37 @@
                         If the final value of this field is not null, all of the above is ignored. Whether the window provides an activation token or not, doesn't matter. The window will be focused if and only if this field is true. If it is false, the window will not be focused, even if it provides a valid activation token.
                       '';
                     };
+                    on-xdg-activate =
+                      nullable (enum [
+                        "ignore"
+                        "set-urgent"
+                        "focus"
+                      ])
+                      // {
+                        description = ''
+                          What to do when this window requests activation through ${
+                            fmt.masked-link {
+                              href = "https://wayland.app/protocols/xdg-activation-v1";
+                              content = "xdg activation";
+                            }
+                          }.
+
+                          ${fmt.list [
+                            "${fmt.code "ignore"}: Do nothing; neither focus the window nor mark it urgent."
+                            "${fmt.code "set-urgent"}: Always mark the window urgent instead of focusing it."
+                            "${fmt.code "focus"}: Always focus the window, even for activation requests without a serial."
+                          ]}
+
+                          When this option is null, niri chooses between focusing the window and marking it urgent based on the serial that the application provides when creating the activation token. Requests with a valid serial focus the target window, while requests without a serial mark it urgent.
+
+                          Requests with a set but invalid serial are always ignored. You can change this behavior with the ${
+                            fmt.masked-link {
+                              href = "https://niri-wm.github.io/niri/Configuration%3A-Debug-Options.html#honor-xdg-activation-with-invalid-serial";
+                              content = fmt.code "honor-xdg-activation-with-invalid-serial";
+                            }
+                          } debug flag.
+                        '';
+                      };
                   }
                   {
                     block-out-from =
@@ -3942,6 +3973,7 @@
             (nullable leaf "open-fullscreen" cfg.open-fullscreen)
             (nullable leaf "open-floating" cfg.open-floating)
             (nullable leaf "open-focused" cfg.open-focused)
+            (nullable leaf "on-xdg-activate" cfg.on-xdg-activate)
             (nullable leaf "draw-border-with-background" cfg.draw-border-with-background)
             (nullable (map' leaf corner-radius) "geometry-corner-radius" cfg.geometry-corner-radius)
             (nullable leaf "clip-to-geometry" cfg.clip-to-geometry)

@@ -1984,7 +1984,7 @@
                 pointer-tablet-common
                 // tablet-touch-common
                 // {
-                  map-to-focused-output = nullable types.bool;
+                  map-to-focused-output = optional types.bool false;
                 };
               touch = tablet-touch-common;
               warp-mouse-to-focus =
@@ -3532,7 +3532,7 @@
           touchy cfg
           ++ [
             (nullable leaf "calibration-matrix" cfg.calibration-matrix)
-            (nullable leaf "map-to-focused-output" cfg.map-to-focused-output)
+            (flag' "map-to-focused-output" cfg.map-to-focused-output)
           ];
 
         touch =

@@ -1984,7 +1984,7 @@
                 pointer-tablet-common
                 // tablet-touch-common
                 // {
-                  map-to-focused-output = nullable types.str;
+                  map-to-focused-output = nullable types.bool;
                 };
               touch = tablet-touch-common;
               warp-mouse-to-focus =

@@ -1447,7 +1447,7 @@ Further reading:
 
 
 ## `programs.niri.settings.input.tablet.map-to-focused-output`
-- type: `null or string`
+- type: `null or boolean`
 - default: `null`
 
 

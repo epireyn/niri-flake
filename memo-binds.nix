@@ -10,6 +10,7 @@
   "toggle-debug-tint"
   "debug-toggle-opaque-regions"
   "debug-toggle-damage"
+  "toggle-touchpad"
   "spawn"
   "spawn-sh"
   "do-screen-transition"

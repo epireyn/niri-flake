@@ -427,13 +427,14 @@
                 map (name: {
                   ${name} = kdl.magic-leaf name;
                 }) list;
+              inherit (nixpkgs.lib) mergeAttrsList;
             in
             {
-              actions = nixpkgs.lib.mergeAttrsList (mapActions (import ./memo-binds.nix)) // {
-                recent-windows = mapActions [
+              actions = mergeAttrsList (mapActions (import ./memo-binds.nix)) // {
+                recent-windows = mergeAttrsList (mapActions [
                   "next-window"
                   "previous-window"
-                ];
+                ]);
               };
 
               include.optional = path: {

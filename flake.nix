@@ -42,6 +42,7 @@
       html-docs = call ./generate-html-docs.nix;
       settings = call ./settings.nix;
       stylix-module = call ./stylix.nix;
+      cargo-lock = call ./cargo-lock.nix;
 
       stable-revs = import ./refs.nix;
 
@@ -104,10 +105,7 @@
           version = package-version src;
           src = src;
           inherit patches;
-          cargoLock = {
-            lockFile = "${src}/Cargo.lock";
-            allowBuiltinFetchGit = true;
-          };
+          cargoLock = cargo-lock.args src;
           nativeBuildInputs = [
             pkg-config
             rustPlatform.bindgenHook
@@ -248,10 +246,7 @@
           pname = "xwayland-satellite";
           version = package-version src;
           inherit src patches;
-          cargoLock = {
-            lockFile = "${src}/Cargo.lock";
-            allowBuiltinFetchGit = true;
-          };
+          cargoLock = cargo-lock.args src;
           nativeBuildInputs = [
             pkg-config
             rustPlatform.bindgenHook
@@ -357,6 +352,12 @@
           docs-markdown = docs.make-docs (settings.fake-docs { inherit fmt-date fmt-time; });
           docs-html = html-docs.make-docs (settings.type-with html-docs.settings-fmt);
           settings-module = settings.module;
+          git-hashes = cargo-lock.generate-hashes [
+            inputs.niri-stable
+            inputs.niri-unstable
+            inputs.xwayland-satellite-stable
+            inputs.xwayland-satellite-unstable
+          ];
           memo-binds = nixpkgs.lib.pipe (binds "${inputs.niri-unstable}/niri-config/src/binds.rs") [
             (map (bind: "  \"${bind.name}\""))
             (builtins.concatStringsSep "\n")

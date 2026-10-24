@@ -71,6 +71,43 @@
         else
           "unstable-${fmt-date src.lastModifiedDate}-${src.shortRev}";
 
+      git-hashes = import ./git-hashes.nix;
+
+      # Git dependencies of a source tree, as listed in its Cargo.lock.
+      # Sources look like `git+<url>?rev=<rev>#<rev>`.
+      cargo-git-packages =
+        src:
+        nixpkgs.lib.pipe "${src}/Cargo.lock" [
+          builtins.readFile
+          builtins.fromTOML
+          (lock: lock.package)
+          (builtins.filter (pkg: nixpkgs.lib.hasPrefix "git+" (pkg.source or "")))
+          (map (
+            pkg:
+            let
+              url-rev = nixpkgs.lib.splitString "#" (nixpkgs.lib.removePrefix "git+" pkg.source);
+            in
+            pkg
+            // {
+              url = builtins.head (nixpkgs.lib.splitString "?" (builtins.head url-rev));
+              rev = nixpkgs.lib.last url-rev;
+            }
+          ))
+        ];
+
+      # `importCargoLock` arguments for a source tree.
+      # Git dependencies with a known hash are fetched at build time, the rest during evaluation.
+      cargo-lock = src: {
+        lockFile = "${src}/Cargo.lock";
+        allowBuiltinFetchGit = true;
+        outputHashes = builtins.listToAttrs (
+          map (pkg: {
+            name = "${pkg.name}-${pkg.version}";
+            value = git-hashes.${pkg.rev};
+          }) (builtins.filter (pkg: git-hashes ? ${pkg.rev}) (cargo-git-packages src))
+        );
+      };
+
       make-niri =
         {
           src,
@@ -104,10 +141,7 @@
           version = package-version src;
           src = src;
           inherit patches;
-          cargoLock = {
-            lockFile = "${src}/Cargo.lock";
-            allowBuiltinFetchGit = true;
-          };
+          cargoLock = cargo-lock src;
           nativeBuildInputs = [
             pkg-config
             rustPlatform.bindgenHook
@@ -248,10 +282,7 @@
           pname = "xwayland-satellite";
           version = package-version src;
           inherit src patches;
-          cargoLock = {
-            lockFile = "${src}/Cargo.lock";
-            allowBuiltinFetchGit = true;
-          };
+          cargoLock = cargo-lock src;
           nativeBuildInputs = [
             pkg-config
             rustPlatform.bindgenHook
@@ -357,6 +388,43 @@
           docs-markdown = docs.make-docs (settings.fake-docs { inherit fmt-date fmt-time; });
           docs-html = html-docs.make-docs (settings.type-with html-docs.settings-fmt);
           settings-module = settings.module;
+          # The narHash of `builtins.fetchGit` equals the output hash of `fetchgit`,
+          # so the table can be generated during evaluation.
+          git-hashes =
+            nixpkgs.lib.pipe
+              [ "niri-stable" "niri-unstable" "xwayland-satellite-stable" "xwayland-satellite-unstable" ]
+              [
+                (builtins.concatMap (name: cargo-git-packages inputs.${name}))
+                (map (pkg: {
+                  name = pkg.rev;
+                  value = pkg;
+                }))
+                builtins.listToAttrs
+                (nixpkgs.lib.mapAttrsToList (
+                  rev: pkg:
+                  let
+                    inherit
+                      (builtins.fetchGit {
+                        inherit (pkg) url rev;
+                        allRefs = true;
+                        submodules = true;
+                      })
+                      narHash
+                      ;
+                  in
+                  "  \"${rev}\" = \"${narHash}\"; # ${pkg.url}"
+                ))
+                (builtins.concatStringsSep "\n")
+                (hashes: ''
+                  # This is a generated file.
+                  # It lists hashes of git dependencies found in Cargo.lock files, keyed by commit.
+                  # Dependencies listed here are fetched with `fetchgit` at build time,
+                  # any other commit falls back to `builtins.fetchGit` during evaluation.
+                  {
+                  ${hashes}
+                  }
+                '')
+              ];
           memo-binds = nixpkgs.lib.pipe (binds "${inputs.niri-unstable}/niri-config/src/binds.rs") [
             (map (bind: "  \"${bind.name}\""))
             (builtins.concatStringsSep "\n")

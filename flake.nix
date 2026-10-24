@@ -72,7 +72,9 @@
             cp $configPath $out
           '';
 
-      make-package-set = pkgs: import ./packages.nix {
+      make-package-set =
+        pkgs:
+        import ./packages.nix {
           inherit inputs;
           inherit pkgs;
         };
@@ -171,10 +173,7 @@
         };
       };
 
-      packages = forAllSystems (
-        system:
-        (make-package-set nixpkgs.legacyPackages.${system})
-      );
+      packages = forAllSystems (system: (make-package-set nixpkgs.legacyPackages.${system}));
 
       overlays.niri = final: prev: make-package-set final;
 
@@ -222,13 +221,23 @@
             };
           };
 
-          config.lib.niri = {
-            actions = nixpkgs.lib.mergeAttrsList (
-              map (name: {
-                ${name} = kdl.magic-leaf name;
-              }) (import ./memo-binds.nix)
-            );
-          };
+          config.lib.niri =
+            let
+              mapActions =
+                list:
+                map (name: {
+                  ${name} = kdl.magic-leaf name;
+                }) list;
+              inherit (nixpkgs.lib) mergeAttrsList;
+            in
+            {
+              actions = mergeAttrsList (mapActions (import ./memo-binds.nix)) // {
+                recent-windows = mergeAttrsList (mapActions [
+                  "next-window"
+                  "previous-window"
+                ]);
+              };
+            };
 
           config.xdg.configFile.niri-config = {
             enable = cfg.finalConfig != null;

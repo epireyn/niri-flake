@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 if [[ ! -e .git/rebase-merge/done ]]; then
 
 # buffer the output of nix eval through a temporary file
@@ -28,12 +30,7 @@ nix eval --raw .#lib.internal.memo-binds --show-trace > memo-binds.nix
 nix eval --raw --file fetch-refs.nix --show-trace > refs.nix
 nix eval --raw .#lib.internal.git-hashes --show-trace > git-hashes.nix
 
-if [ $? -ne 0 ]; then
-exit 1
-fi
-
 git diff --quiet docs.md refs.nix git-hashes.nix
-if [ $? -ne 0 ]; then
 
 git add docs.md
 git add memo-binds.nix
@@ -45,7 +42,5 @@ git commit --no-verify --amend --no-edit
 nix eval --no-warn-dirty --raw .#lib.internal.docs-markdown --show-trace > $tmp
 
 mv $tmp docs.md
-
-fi
 
 fi

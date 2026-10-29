@@ -2,13 +2,13 @@
 
 Please contact me through issues instead of the original author.
 
-# Original README
+# (Edited) original README
 
 This flake contains nix packages for [niri](https://github.com/niri-wm/niri), a scrollable-tiling Wayland compositor. You can try it right now: add the binary cache with `cachix use niri-epireyn` and then `nix run github:epireyn/niri-flake`. You can also try the latest commit to the `main` branch with `nix run github:epireyn/niri-flake#niri-unstable`.
 
 This flake also contains NixOS and home-manager modules to install all necessary components of a working Wayland environment, and to let you manage your configuration declaratively, validating it at build-time. This ensures that your config's schema is always in sync with the installed version of niri.
 
-**The main location for documentation is [`docs.md`](./docs.md)**. The most important outputs are `overlays.niri` and `nixosModules.niri`. You may also use sodiboo's configuration as a reference at [`github:sodiboo/system`](https://github.com/sodiboo/system/blob/main/personal/niri.mod.nix)
+**The main location for documentation is the project's [GitHub Pages](https://epireyn.github.io/niri-flake/settings.html)**. The most important outputs are `overlays.niri` and `nixosModules.niri`.
 
 The rest of this README covers miscellaneous topics related to this flake or repo as a whole.
 

@@ -30,7 +30,7 @@
           <nav aria-label="breadcrumb">
             <ul>
               <li>
-                <a href="/">niri-flake</a>
+                <a href="https://github.com/epireyn/niri-flake">niri-flake</a>
               </li>
               <li>
                 <a href="#"

@@ -35,6 +35,9 @@ check-docs: check
 doc:
     NIX_CONFIG="max-call-depth = 20000" nix eval --quiet --quiet --raw .#lib.internal.docs-markdown | sponge docs.md
 
+cargo-hashes:
+    nix eval --raw .#lib.internal.git-hashes --show-trace > git-hashes.nix
+
 watch:
     fd .nix . | entr just doc
 

@@ -46,6 +46,7 @@
       kdl = call ./kdl.nix;
       binds = call ./parse-binds.nix;
       stylix-module = call ./stylix.nix;
+
       cargo-lock = call ./cargo-lock.nix;
 
       date = {
@@ -78,6 +79,7 @@
         import ./packages.nix {
           inherit inputs;
           inherit pkgs;
+          inherit cargo-lock;
         };
 
       combined-closure =
@@ -158,6 +160,12 @@
             inherit kdl;
             fmt = settings-fmt.gfm;
           };
+          git-hashes = cargo-lock.generate-hashes [
+            inputs.niri-stable
+            inputs.niri-unstable
+            inputs.xwayland-satellite-stable
+            inputs.xwayland-satellite-unstable
+          ];
           memo-binds = nixpkgs.lib.pipe (binds "${inputs.niri-unstable}/niri-config/src/binds.rs") [
             (map (bind: "  \"${bind.name}\""))
             (builtins.concatStringsSep "\n")

@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  cargo-lock,
 }:
 let
   stable-revs = import ./refs.nix;
@@ -63,10 +64,7 @@ let
       version = package-version src;
       src = src;
       inherit patches;
-      cargoLock = {
-        lockFile = "${src}/Cargo.lock";
-        allowBuiltinFetchGit = true;
-      };
+      cargoLock = cargo-lock.args src;
       nativeBuildInputs = [
         pkg-config
         rustPlatform.bindgenHook
@@ -197,10 +195,7 @@ let
       pname = "xwayland-satellite";
       version = package-version src;
       inherit src patches;
-      cargoLock = {
-        lockFile = "${src}/Cargo.lock";
-        allowBuiltinFetchGit = true;
-      };
+      cargoLock = cargo-lock.args src;
       nativeBuildInputs = [
         pkg-config
         rustPlatform.bindgenHook

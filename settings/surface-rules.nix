@@ -780,6 +780,18 @@ in
             '';
           };
         }
+        {
+          layer =
+            nullable (enum [
+              "background"
+              "bottom"
+              "top"
+              "overlay"
+            ])
+            // {
+              description = ''Matches surfaces on this layer-shell layer. Can be "background", "bottom", "top", or "overlay". If null, the layer is excluded from the matching.'';
+            };
+        }
       ];
       properties = appearance.layer-rules ++ [
         {

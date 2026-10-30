@@ -403,7 +403,6 @@
                 modules = [
                   self.lib.internal.settings-module
                   {
-                    config.programs.niri.settings = { };
                     config._module.args.pkgs = inputs.nixpkgs.legacyPackages.${system};
                     config.programs.niri.settings = { };
                   }

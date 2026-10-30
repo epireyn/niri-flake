@@ -28,7 +28,7 @@ To access this package under `pkgs.niri-stable`, you should use [`overlays.niri`
 
 The latest commit to the development branch of niri.
 
-Currently, this is exactly commit [`fcbc971`](https://github.com/niri-wm/niri/tree/fcbc971cf49a987b1e8d5ff1d64da6b1f61a1787) which was authored on `2026-10-27 08:56:10`.
+Currently, this is exactly commit [`b22eb84`](https://github.com/niri-wm/niri/tree/b22eb842ca9506d4e2ff997b116031cdb3f650f8) which was authored on `2026-10-30 06:16:36`.
 
 > [!warning]
 > `niri-unstable` is not a released version, there are no stability guarantees, and it may break your workflow from itme to time.
@@ -4303,6 +4303,12 @@ A regular expression to match against the namespace of the layer surface.
 All layer surfaces have a namespace set once at creation. When this rule is non-null, the regex must match the namespace of the layer surface for this rule to match.
 
 
+## `programs.niri.settings.layer-rules.*.matches.*.layer`
+- type: `null or one of "background", "bottom", "top", "overlay"`
+- default: `null`
+
+Matches surfaces on this layer-shell layer. Can be "background", "bottom", "top", or "overlay". If null, the layer is excluded from the matching.
+
 ## `programs.niri.settings.layer-rules.*.matches.*.at-startup`
 - type: `null or boolean`
 - default: `null`
@@ -4328,6 +4334,12 @@ A regular expression to match against the namespace of the layer surface.
 
 All layer surfaces have a namespace set once at creation. When this rule is non-null, the regex must match the namespace of the layer surface for this rule to match.
 
+
+## `programs.niri.settings.layer-rules.*.excludes.*.layer`
+- type: `null or one of "background", "bottom", "top", "overlay"`
+- default: `null`
+
+Matches surfaces on this layer-shell layer. Can be "background", "bottom", "top", or "overlay". If null, the layer is excluded from the matching.
 
 ## `programs.niri.settings.layer-rules.*.excludes.*.at-startup`
 - type: `null or boolean`

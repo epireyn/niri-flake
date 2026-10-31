@@ -1240,6 +1240,13 @@ When `true`, the hotkey overlay will not contain this keybind at all. When `fals
 The title of this keybind in the hotkey overlay. [Pango markup](https://docs.gtk.org/Pango/pango_markup.html) is supported.
 
 
+## `programs.niri.settings.binds.<name>.pass-through`
+- type: `null or boolean`
+- default: `null`
+
+Whether to pass the binding through to the focused application.
+
+
 ## `programs.niri.settings.binds.<name>.action`
 - type: `null or kdl leaf`
 - default: `null`

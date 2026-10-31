@@ -164,7 +164,17 @@ in
                   };
                 }
                 {
-                ({options, ...}: {
+                  options.pass-through = nullable types.bool // {
+                    description = ''
+                      Whether to pass the binding through to the focused application.
+                    '';
+                  };
+
+                  render = config: {
+                    properties.pass-through = lib.mkIf (config.pass-through != null) config.pass-through;
+                  };
+                }
+                ({ options, ... }: {
                   options.action = nullable kdl.types.kdl-leaf // {
                     description = ''
                       An action is represented as an attrset with a single key, being the name, and a value that is a list of its arguments. For example, to represent a spawn action, you could do this:

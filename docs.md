@@ -1972,6 +1972,21 @@ It's visible through transparent windows, between [gaps](#programsnirisettingsla
 See also [`overview.backdrop-color`](#programsnirisettingsoverviewbackdrop-color), which is drawn at the back of each monitor, behind the workspace background.
 
 
+## `programs.niri.settings.layout.fullscreen-backdrop-color`
+- type: `null or string`
+- default: `null`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Background color drawn behind fullscreen windows. It is black by default, you can set it to transparent to have semitransparent window background (in case blur or transparency is enabled).
+
+
 ## `programs.niri.settings.layout.gaps`
 - type: `null or floating point number or signed integer`
 - default: `null`
@@ -2625,6 +2640,21 @@ It's visible through transparent windows, between [gaps](#programsnirisettingsou
 See also [`outputs.<name>.backdrop-color`](#programsnirisettingsoutputsnamebackdrop-color), which is drawn at the back of each monitor, behind the workspace background.
 
 
+## `programs.niri.settings.outputs.<name>.layout.fullscreen-backdrop-color`
+- type: `null or string`
+- default: `null`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Background color drawn behind fullscreen windows. It is black by default, you can set it to transparent to have semitransparent window background (in case blur or transparency is enabled).
+
+
 ## `programs.niri.settings.outputs.<name>.layout.gaps`
 - type: `null or floating point number or signed integer`
 - default: `null`
@@ -3135,6 +3165,21 @@ The background is a solid-colored layer drawn behind each workspace.
 It's visible through transparent windows, between [gaps](#programsnirisettingsworkspacesnamelayoutgaps), and inside any [struts](#programsnirisettingsworkspacesnamelayoutstruts)
 
 See also [`outputs.<name>.backdrop-color`](#programsnirisettingsoutputsnamebackdrop-color), which is drawn at the back of each monitor, behind the workspace background.
+
+
+## `programs.niri.settings.workspaces.<name>.layout.fullscreen-backdrop-color`
+- type: `null or string`
+- default: `null`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Background color drawn behind fullscreen windows. It is black by default, you can set it to transparent to have semitransparent window background (in case blur or transparency is enabled).
 
 
 ## `programs.niri.settings.workspaces.<name>.layout.gaps`

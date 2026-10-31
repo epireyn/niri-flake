@@ -13,6 +13,7 @@ let
   inherit (niri-flake-internal)
     fmt
     subopts
+    unstable-note
     ;
 
   inherit (hierarchies) overview-options layout-options;
@@ -57,9 +58,20 @@ in
         }, which is drawn at the back of each monitor, behind the workspace background.
       '';
     };
+    options.fullscreen-backdrop-color = ctx.nullable "fullscreen-backdrop-color" {
+      type = types.str;
+      description = ''
+        ${unstable-note}
+
+        Background color drawn behind fullscreen windows. It is black by default, you can set it to transparent to have semitransparent window background (in case blur or transparency is enabled).
+      '';
+    };
     render = config: [
       (lib.mkIf (config.background-color != null) [
         (kdl.leaf "background-color" config.background-color)
+      ])
+      (lib.mkIf (config.fullscreen-backdrop-color != null) [
+        (kdl.leaf "fullscreen-backdrop-color" config.fullscreen-backdrop-color)
       ])
     ];
   }))

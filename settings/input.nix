@@ -746,11 +746,11 @@ in
                 {
                   options.map-to-focused-window = optional types.bool false // {
                     description = ''
+                      ${unstable-note}
+
                       Maps the tablet to the focused window's geometry, takes precedence over ${fmt.code "map-to-focused-output"} and ${fmt.code "map-to-output"}. Falls back to those when no window is focused (for example, in the overview).
 
                       When the tablet is also mapped to a specific output via ${fmt.code "map-to-output"}, the current option maps the tablet to the active window on that output. If the tablet isn't mapped to any specific output, it will map the tablet to the current focused window regardless of where it is.
-
-                      ${unstable-note}
                     '';
                   };
 

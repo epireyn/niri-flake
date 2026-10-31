@@ -632,10 +632,6 @@ Maps the tablet to the focused output, taking precedence over `map-to-output`
 - type: `boolean`
 - default: `false`
 
-Maps the tablet to the focused window's geometry, takes precedence over `map-to-focused-output` and `map-to-output`. Falls back to those when no window is focused (for example, in the overview).
-
-When the tablet is also mapped to a specific output via `map-to-output`, the current option maps the tablet to the active window on that output. If the tablet isn't mapped to any specific output, it will map the tablet to the current focused window regardless of where it is.
-
 > [!important]
 > This option is not yet available in stable niri.
 > 
@@ -643,6 +639,10 @@ When the tablet is also mapped to a specific output via `map-to-output`, the cur
 > 
 > Otherwise, your system might fail to build.
 
+
+Maps the tablet to the focused window's geometry, takes precedence over `map-to-focused-output` and `map-to-output`. Falls back to those when no window is focused (for example, in the overview).
+
+When the tablet is also mapped to a specific output via `map-to-output`, the current option maps the tablet to the active window on that output. If the tablet isn't mapped to any specific output, it will map the tablet to the current focused window regardless of where it is.
 
 
 ## `programs.niri.settings.input.touch`

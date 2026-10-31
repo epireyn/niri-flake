@@ -610,6 +610,23 @@ in
                   ];
                 }
                 {
+                  options.pinch-sensitivity = optional float-or-int 1.0 // {
+                    description = ''
+                      ${unstable-note}
+
+                      Sensitivity multiplicator when pinching. Defaults to ${fmt.code "1.0"}.
+
+                      Values above ${fmt.code "1.0"} increase sensitivity, values below ${fmt.code "1.0"} decrease it.
+                    '';
+                  };
+
+                  render = config: [
+                    (lib.mkIf (config.pinch-sensitivity != 1.0) [
+                      (kdl.leaf "pinch-sensitivity" config.pinch-sensitivity)
+                    ])
+                  ];
+                }
+                {
                   options.disabled-on-external-mouse = optional types.bool false // {
                     description = ''
                       Whether to disable the touchpad when an external mouse is plugged in.

@@ -849,6 +849,23 @@ Further reading:
 
 
 
+## `programs.niri.settings.input.touchpad.pinch-sensitivity`
+- type: `floating point number or signed integer`
+- default: `1.000000`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Sensitivity multiplicator when pinching. Defaults to `1.0`.
+
+Values above `1.0` increase sensitivity, values below `1.0` decrease it.
+
+
 ## `programs.niri.settings.input.touchpad.disabled-on-external-mouse`
 - type: `boolean`
 - default: `false`

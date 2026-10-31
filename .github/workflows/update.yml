@@ -62,6 +62,10 @@ jobs:
         shell: bash
         run: nix-store --query --requisites $(nix-store --query --deriver $(nix build --print-out-paths .#niri-unstable)) | cachix push niri-epireyn
         if: ${{ steps.update.outputs.pull-request-number }}
-      - name: Force push changes to CI branch
-        run: git push origin update_flake_lock_action --force
+      - name: Force push changes and add PR label
         if: ${{ steps.update.outputs.pull-request-number }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin update_flake_lock_action --force
+          gh pr edit "${{ steps.update.outputs.pull-request-number }}" --add-label "ready"

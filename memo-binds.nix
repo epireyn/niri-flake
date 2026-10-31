@@ -4,6 +4,7 @@
 # So, we memoize it here. It doesn't change anyway.
 [
   "quit"
+  "change-vt"
   "suspend"
   "power-off-monitors"
   "power-on-monitors"

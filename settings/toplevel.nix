@@ -295,6 +295,7 @@ in
             options.rendered = lib.mkOption {
               type = kdl.types.kdl-document;
               readOnly = true;
+              visible = false;
             };
             config.rendered = [
               (map (include: include.rendered) config.includes.before)

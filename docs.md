@@ -1241,7 +1241,8 @@ The title of this keybind in the hotkey overlay. [Pango markup](https://docs.gtk
 
 
 ## `programs.niri.settings.binds.<name>.action`
-- type: `kdl leaf`
+- type: `null or kdl leaf`
+- default: `null`
 
 An action is represented as an attrset with a single key, being the name, and a value that is a list of its arguments. For example, to represent a spawn action, you could do this:
 
@@ -1289,6 +1290,42 @@ If an action takes properties and positional arguments, you can write it like th
 }
 ```
 
+
+
+## `programs.niri.settings.binds.<name>.press`
+- type: `null or kdl leaf`
+- default: `null`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Same as [`binds.<name>.action`](#programsnirisettingsbindsnameaction). It is the default action, to use alongside [`binds.<name>.release`](#programsnirisettingsbindsnamerelease) if necessary.
+
+By default, any bind with both press and release action does not repeat. You can explicitly set repeat=true if needed
+
+
+## `programs.niri.settings.binds.<name>.release`
+- type: `null or kdl leaf`
+- default: `null`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Similar to [`binds.<name>.action`](#programsnirisettingsbindsnameaction) and [`binds.<name>.press`](#programsnirisettingsbindsnamepress), but only triggers when the keybind is released.
+
+Useful for binding modifier keys to actions when pressed on their own. Read more on [niri wiki](https://niri-wm.github.io/niri/Configuration%3A-Key-Bindings.html#press-and-release-bindings).
+
+By default, any bind with both press and release action does not repeat. You can explicitly set repeat=true if needed
 
 
 <!-- programs.niri.settings.switch-events -->

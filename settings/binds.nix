@@ -14,8 +14,9 @@ let
     fmt
     nullable
     make-ordered-options
-    required
     optional
+    subopts
+    unstable-note
     ;
 
 in
@@ -112,7 +113,7 @@ in
                     '';
                   };
                   render = config: {
-                    properties.repeat = lib.mkIf (config.repeat != true) config.repeat;
+                    properties.repeat = lib.mkIf (config.repeat != true || config.action == null) config.repeat;
                   };
                 }
                 {
@@ -163,7 +164,8 @@ in
                   };
                 }
                 {
-                  options.action = required kdl.types.kdl-leaf // {
+                ({options, ...}: {
+                  options.action = nullable kdl.types.kdl-leaf // {
                     description = ''
                       An action is represented as an attrset with a single key, being the name, and a value that is a list of its arguments. For example, to represent a spawn action, you could do this:
 
@@ -334,10 +336,64 @@ in
                     # ''
                     ;
                   };
-                  render = config: {
-                    children = lib.mapAttrsToList kdl.leaf config.action;
+                  options.press = nullable kdl.types.kdl-leaf // {
+                    description = ''
+                      ${unstable-note}
+
+                      Same as ${fmt.link-opt options.action}. It is the default action, to use alongside ${fmt.link-opt options.release} if necessary.
+
+                      By default, any bind with both press and release action does not repeat. You can explicitly set repeat=true if needed
+                    '';
                   };
-                }
+                  options.release = nullable kdl.types.kdl-leaf // {
+                    description = ''
+                      ${unstable-note}
+
+                      Similar to ${fmt.link-opt options.action} and ${fmt.link-opt options.press}, but only triggers when the keybind is released.
+
+                      Useful for binding modifier keys to actions when pressed on their own. Read more on ${
+                        fmt.masked-link {
+                          content = "niri wiki";
+                          href = "https://niri-wm.github.io/niri/Configuration%3A-Key-Bindings.html#press-and-release-bindings";
+                        }
+                      }.
+
+                      By default, any bind with both press and release action does not repeat. You can explicitly set repeat=true if needed
+                    '';
+                  };
+                  render =
+                    config:
+                    with config;
+                    let
+                      allNull =
+                        !(lib.any (x: x != null) [
+                          action
+                          press
+                          release
+                        ]);
+                      both = action != null && (press != null || release != null);
+                      abortOr =
+                        f:
+                        if (allNull) then
+                          abort "Either action or press/release must be set for the binding"
+                        else if (both) then
+                          abort "Only one of `action` or the pair press/release must be set. You cannot combine `action` with one of the others."
+                        else
+                          f;
+                      mapAction = action: lib.mapAttrsToList kdl.leaf action;
+
+                    in
+                    {
+                      children = abortOr (
+                        if (action != null) then
+                          (mapAction action)
+                        else
+                          (lib.optional (press != null) (kdl.plain "press" (mapAction press)))
+                          ++ (lib.optional (release != null) (kdl.plain "release" (mapAction release)))
+                      );
+                    };
+                })
+
               ]
             )
           ];

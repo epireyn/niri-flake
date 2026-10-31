@@ -5,7 +5,7 @@
 }:
 let
   stable-revs = import ./refs.nix;
-  lib = inputs.nixpkgs.lib;
+  lib = pkgs.lib;
 
   date = {
     year = builtins.substring 0 4;

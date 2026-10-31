@@ -1577,11 +1577,30 @@ Individual hot corners cannot be enabled/disabled separately. This option config
 - default: `null`
 
 
-## `programs.niri.settings.animations.window-open.custom-shader`
+<!-- programs.niri.settings.animations.window-open.custom-shader -->
+
+## `programs.niri.settings.animations.window-open.custom-shader.path`
+- type: `null or path`
+- default: `null`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Path to a file containing the GLSL shader.
+
+
+## `programs.niri.settings.animations.window-open.custom-shader.text`
 - type: `null or string`
 - default: `null`
 
 Source code for a GLSL shader to use for this animation.
+
+To use an external file, prefer [`animations.window-open.custom-shader.path`](#programsnirisettingsanimationswindow-opencustom-shaderpath) when available.
 
 For example, set it to `builtins.readFile ./window-open.glsl` to use a shader from the same directory as your configuration file.
 
@@ -1603,11 +1622,30 @@ See: https://github.com/niri-wm/niri/wiki/Configuration:-Animations#custom-shade
 - default: `null`
 
 
-## `programs.niri.settings.animations.window-close.custom-shader`
+<!-- programs.niri.settings.animations.window-close.custom-shader -->
+
+## `programs.niri.settings.animations.window-close.custom-shader.path`
+- type: `null or path`
+- default: `null`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Path to a file containing the GLSL shader.
+
+
+## `programs.niri.settings.animations.window-close.custom-shader.text`
 - type: `null or string`
 - default: `null`
 
 Source code for a GLSL shader to use for this animation.
+
+To use an external file, prefer [`animations.window-close.custom-shader.path`](#programsnirisettingsanimationswindow-closecustom-shaderpath) when available.
 
 For example, set it to `builtins.readFile ./window-close.glsl` to use a shader from the same directory as your configuration file.
 
@@ -1629,11 +1667,30 @@ See: https://github.com/niri-wm/niri/wiki/Configuration:-Animations#custom-shade
 - default: `null`
 
 
-## `programs.niri.settings.animations.window-resize.custom-shader`
+<!-- programs.niri.settings.animations.window-resize.custom-shader -->
+
+## `programs.niri.settings.animations.window-resize.custom-shader.path`
+- type: `null or path`
+- default: `null`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Path to a file containing the GLSL shader.
+
+
+## `programs.niri.settings.animations.window-resize.custom-shader.text`
 - type: `null or string`
 - default: `null`
 
 Source code for a GLSL shader to use for this animation.
+
+To use an external file, prefer [`animations.window-resize.custom-shader.path`](#programsnirisettingsanimationswindow-resizecustom-shaderpath) when available.
 
 For example, set it to `builtins.readFile ./window-resize.glsl` to use a shader from the same directory as your configuration file.
 

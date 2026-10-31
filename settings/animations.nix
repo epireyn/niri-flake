@@ -23,6 +23,8 @@ let
     required
     optional
     record
+    unstable-note
+    subopts
     ;
 
   animation-kind = types.attrTag {
@@ -69,7 +71,7 @@ let
     {
       options.${animation-name} = nullable (
         types.submodule (
-          { config, ... }:
+          { config, options, ... }:
           {
             options = {
               enable = optional types.bool true;
@@ -78,16 +80,32 @@ let
               };
             }
             // lib.optionalAttrs has-shader {
-              custom-shader = nullable types.str // {
-                description = ''
-                  Source code for a GLSL shader to use for this animation.
+              custom-shader = lib.mkOption {
+                type = record {
 
-                  For example, set it to ${fmt.code "builtins.readFile ./${animation-name}.glsl"} to use a shader from the same directory as your configuration file.
+                  text = nullable types.str // {
+                    description = ''
+                      Source code for a GLSL shader to use for this animation.
 
-                  See: ${fmt.bare-link "https://github.com/niri-wm/niri/wiki/Configuration:-Animations#custom-shader"}
-                '';
+                      To use an external file, prefer ${fmt.link-opt (subopts options.custom-shader).path} when available.
+
+                      For example, set it to ${fmt.code "builtins.readFile ./${animation-name}.glsl"} to use a shader from the same directory as your configuration file.
+
+                      See: ${fmt.bare-link "https://github.com/niri-wm/niri/wiki/Configuration:-Animations#custom-shader"}
+                    '';
+                  };
+                  path = nullable (types.pathWith { }) // {
+                    description = ''
+                      ${unstable-note}
+
+                      Path to a file containing the GLSL shader.
+                    '';
+                  };
+
+                };
               };
             }
+
             // {
               rendered = lib.mkOption {
                 type = kdl.types.kdl-node;
@@ -109,7 +127,13 @@ let
                 ])
                 (lib.optional has-shader [
                   (lib.mkIf (config.custom-shader != null) [
-                    (kdl.leaf "custom-shader" config.custom-shader)
+                    (lib.mkIf (config.custom-shader.path != null && config.custom-shader.text != null) (
+                      abort "Only one of `custom-shader.source` and `custom-shader.text` can be set."
+                    ))
+                    (lib.mkIf (config.custom-shader.text != null) (kdl.leaf "custom-shader" config.custom-shader.text))
+                    (lib.mkIf (config.custom-shader.path != null) (
+                      kdl.leaf "custom-shader" { inherit (config.custom-shader) path; }
+                    ))
                   ])
                 ])
               ])

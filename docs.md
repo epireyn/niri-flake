@@ -4235,6 +4235,28 @@ Takes effect only when the window is on an output with [`outputs.<name>.variable
 - default: `null`
 
 
+## `programs.niri.settings.window-rules.*.on-xdg-activate`
+- type: `null or one of "ignore", "set-urgent", "focus"`
+- default: `null`
+
+> [!important]
+> This option is not yet available in stable niri.
+> 
+> If you wish to modify this option, you should make sure you're using the latest unstable niri.
+> 
+> Otherwise, your system might fail to build.
+
+
+Set what niri does when a window requests activation through xdg-activation.
+- "ignore": do nothing: neither focus the window nor mark it urgent.
+- "set-urgent": always mark the window urgent instead of focusing it.
+- "focus": always focus the window, even for activation requests without a serial.
+
+
+The default behavior, when this rule is null, picks between focusing and marking the window urgent based on the serial that the application provides when creating the activation token. Requests with a valid serial focus the target window, and requests without a serial mark it urgent.
+
+
+
 ## `programs.niri.settings.window-rules.*.baba-is-float`
 - type: `null or boolean`
 - default: `null`

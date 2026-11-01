@@ -14,6 +14,7 @@ let
     fmt
     nullable
     make-ordered-options
+    unstable-note
     ;
 in
 [
@@ -81,15 +82,22 @@ in
                 render = _: [ ];
               }
               {
-                options.open-on-output = nullable types.str // {
+                options.open-on-output = nullable (types.either types.str (types.listOf types.str)) // {
                   description = ''
                     The name of the output the workspace should be assigned to.
+
+                    ${unstable-note}
+
+                    Also supports lists. If the first output is not connected, the workspace will open on the second output, and so on. The output order is reevaluated whenever outputs connect or disconnect. Connecting a higher-priority output will move the workspace there.
                   '';
                 };
                 render = config: [
-                  (lib.mkIf (config.open-on-output != null) [
-                    (kdl.leaf "open-on-output" config.open-on-output)
-                  ])
+                  (lib.mkIf (config.open-on-output != null) (
+                    lib.pipe config.open-on-output [
+                      (value: if builtins.isString value then [ value ] else value)
+                      (map (kdl.leaf "open-on-output"))
+                    ]
+                  ))
                 ];
               }
               appearance.workspace

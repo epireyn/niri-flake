@@ -689,7 +689,6 @@ Further reading:
 
 ## `programs.niri.settings.input.touchpad`
 - type: `null or (submodule)`
-- default: `null`
 
 
 ## `programs.niri.settings.input.touchpad.enable`

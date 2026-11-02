@@ -515,213 +515,217 @@ in
             ];
           in
           {
-            touchpad = pointer-like-section "touchpad" (
-              basic-pointer true
-              ++ [
-                {
-                  options.tap = optional types.bool true // {
-                    description = ''
-                      Whether to enable tap-to-click.
-
-                      Further reading:
-                      ${fmt.list [
-                        (libinput-link "configuration" "Tap-to-click")
-                        (libinput-link "tapping" "Tap-to-click behaviour")
-                      ]}
-                    '';
-                  };
-                  render = config: [
-                    (lib.mkIf (config.tap) [
-                      (kdl.flag "tap")
-                    ])
-                  ];
-                }
-                {
-                  options = {
-
-                    dwt = optional types.bool false // {
+            touchpad =
+              pointer-like-section "touchpad" (
+                basic-pointer true
+                ++ [
+                  {
+                    options.tap = optional types.bool true // {
                       description = ''
-                        Whether to disable the touchpad while typing.
-
-                        Further reading:
-                        ${fmt.list [
-                          (libinput-link "configuration" "Disable while typing")
-                          (libinput-link "palm-detection" "Disable-while-typing")
-                        ]}
-                      '';
-                    };
-                    dwtp = optional types.bool false // {
-                      description = ''
-                        Whether to disable the touchpad while the trackpoint is in use.
-
-                        Further reading:
-                        ${fmt.list [
-                          (libinput-link "configuration" "Disable while trackpointing")
-                          (libinput-link "palm-detection" "Disable-while-trackpointing")
-                        ]}
-                      '';
-                    };
-                  };
-                  render = config: [
-                    (lib.mkIf (config.dwt) [
-                      (kdl.flag "dwt")
-                    ])
-                    (lib.mkIf (config.dwtp) [
-                      (kdl.flag "dwtp")
-                    ])
-                  ];
-                }
-                {
-                  options = {
-                    drag = nullable types.bool // {
-                      description = ''
-                        On most touchpads, "tap and drag" is enabled by default. This option allows you to explicitly enable or disable it.
-
-                        Tap and drag means that to drag an item, you tap the touchpad with some amount of fingers to decide what kind of button press is emulated, but don't hold those fingers, and then you immediately start dragging with one finger.
-
-                        Further reading:
-                        ${fmt.list [
-                          (libinput-link "tapping" "Tap-and-drag")
-                        ]}
-                      '';
-                    };
-                    drag-lock = optional types.bool false // {
-                      description = ''
-                        By default, a "tap and drag" gesture is terminated by releasing the finger that is dragging.
-
-                        Drag lock means that the drag gesture is not terminated when the finger is released, but only when the finger is tapped again, or after a timeout (unless sticky mode is enabled). This allows you to reset your finger position without losing the drag gesture.
-
-                        Drag lock is only applicable when tap and drag is enabled.
-
-                        Further reading:
-                        ${fmt.list [
-                          (libinput-link "tapping" "Tap-and-drag")
-                        ]}
-                      '';
-                    };
-                  };
-                  render = config: [
-                    (lib.mkIf (config.drag != null) [
-                      (kdl.leaf "drag" config.drag)
-                    ])
-                    (lib.mkIf (config.drag-lock) [
-                      (kdl.flag "drag-lock")
-                    ])
-                  ];
-                }
-                {
-                  options.pinch-sensitivity = optional float-or-int 1.0 // {
-                    description = ''
-                      ${unstable-note}
-
-                      Sensitivity multiplicator when pinching. Defaults to ${fmt.code "1.0"}.
-
-                      Values above ${fmt.code "1.0"} increase sensitivity, values below ${fmt.code "1.0"} decrease it.
-                    '';
-                  };
-
-                  render = config: [
-                    (lib.mkIf (config.pinch-sensitivity != 1.0) [
-                      (kdl.leaf "pinch-sensitivity" config.pinch-sensitivity)
-                    ])
-                  ];
-                }
-                {
-                  options.disabled-on-external-mouse = optional types.bool false // {
-                    description = ''
-                      Whether to disable the touchpad when an external mouse is plugged in.
-
-                      Further reading:
-                      ${fmt.list [
-                        (libinput-link "configuration" "Send Events Mode")
-                      ]}
-                    '';
-                  };
-                  render = config: [
-                    (lib.mkIf (config.disabled-on-external-mouse) [
-                      (kdl.flag "disabled-on-external-mouse")
-                    ])
-                  ];
-                }
-                {
-                  options.tap-button-map =
-                    nullable (enum [
-                      "left-middle-right"
-                      "left-right-middle"
-                    ])
-                    // {
-                      description = ''
-                        The mouse button to register when tapping with 1, 2, or 3 fingers, when ${fmt.link-opt (subopts (subopts toplevel-options.input).touchpad).tap} is enabled.
+                        Whether to enable tap-to-click.
 
                         Further reading:
                         ${fmt.list [
                           (libinput-link "configuration" "Tap-to-click")
+                          (libinput-link "tapping" "Tap-to-click behaviour")
                         ]}
                       '';
                     };
-                  render = config: [
-                    (lib.mkIf (config.tap-button-map != null) [
-                      (kdl.leaf "tap-button-map" config.tap-button-map)
-                    ])
-                  ];
-                }
-                {
-                  options.click-method =
-                    nullable (enum [
-                      "button-areas"
-                      "clickfinger"
-                    ])
-                    // {
-                      description = ''
-                        Method to determine which mouse button is pressed when you click the touchpad.
+                    render = config: [
+                      (lib.mkIf (config.tap) [
+                        (kdl.flag "tap")
+                      ])
+                    ];
+                  }
+                  {
+                    options = {
 
-                        ${fmt.list [
-                          ''
-                            ${fmt.code ''"button-areas"''}: ${libinput-doc "clickpad-softbuttons" "Software button areas"} \
-                            The button is determined by which part of the touchpad was clicked.
-                          ''
-                          ''
-                            ${fmt.code ''"clickfinger"''}: ${libinput-doc "clickpad-softbuttons" "Clickfinger behavior"} \
-                            The button is determined by how many fingers clicked.
-                          ''
-                        ]}
+                      dwt = optional types.bool false // {
+                        description = ''
+                          Whether to disable the touchpad while typing.
+
+                          Further reading:
+                          ${fmt.list [
+                            (libinput-link "configuration" "Disable while typing")
+                            (libinput-link "palm-detection" "Disable-while-typing")
+                          ]}
+                        '';
+                      };
+                      dwtp = optional types.bool false // {
+                        description = ''
+                          Whether to disable the touchpad while the trackpoint is in use.
+
+                          Further reading:
+                          ${fmt.list [
+                            (libinput-link "configuration" "Disable while trackpointing")
+                            (libinput-link "palm-detection" "Disable-while-trackpointing")
+                          ]}
+                        '';
+                      };
+                    };
+                    render = config: [
+                      (lib.mkIf (config.dwt) [
+                        (kdl.flag "dwt")
+                      ])
+                      (lib.mkIf (config.dwtp) [
+                        (kdl.flag "dwtp")
+                      ])
+                    ];
+                  }
+                  {
+                    options = {
+                      drag = nullable types.bool // {
+                        description = ''
+                          On most touchpads, "tap and drag" is enabled by default. This option allows you to explicitly enable or disable it.
+
+                          Tap and drag means that to drag an item, you tap the touchpad with some amount of fingers to decide what kind of button press is emulated, but don't hold those fingers, and then you immediately start dragging with one finger.
+
+                          Further reading:
+                          ${fmt.list [
+                            (libinput-link "tapping" "Tap-and-drag")
+                          ]}
+                        '';
+                      };
+                      drag-lock = optional types.bool false // {
+                        description = ''
+                          By default, a "tap and drag" gesture is terminated by releasing the finger that is dragging.
+
+                          Drag lock means that the drag gesture is not terminated when the finger is released, but only when the finger is tapped again, or after a timeout (unless sticky mode is enabled). This allows you to reset your finger position without losing the drag gesture.
+
+                          Drag lock is only applicable when tap and drag is enabled.
+
+                          Further reading:
+                          ${fmt.list [
+                            (libinput-link "tapping" "Tap-and-drag")
+                          ]}
+                        '';
+                      };
+                    };
+                    render = config: [
+                      (lib.mkIf (config.drag != null) [
+                        (kdl.leaf "drag" config.drag)
+                      ])
+                      (lib.mkIf (config.drag-lock) [
+                        (kdl.flag "drag-lock")
+                      ])
+                    ];
+                  }
+                  {
+                    options.pinch-sensitivity = optional float-or-int 1.0 // {
+                      description = ''
+                        ${unstable-note}
+
+                        Sensitivity multiplicator when pinching. Defaults to ${fmt.code "1.0"}.
+
+                        Values above ${fmt.code "1.0"} increase sensitivity, values below ${fmt.code "1.0"} decrease it.
+                      '';
+                    };
+
+                    render = config: [
+                      (lib.mkIf (config.pinch-sensitivity != 1.0) [
+                        (kdl.leaf "pinch-sensitivity" config.pinch-sensitivity)
+                      ])
+                    ];
+                  }
+                  {
+                    options.disabled-on-external-mouse = optional types.bool false // {
+                      description = ''
+                        Whether to disable the touchpad when an external mouse is plugged in.
 
                         Further reading:
                         ${fmt.list [
-                          (libinput-link "configuration" "Click method")
-                          (libinput-link "clickpad-softbuttons" "Clickpad software button behavior")
+                          (libinput-link "configuration" "Send Events Mode")
                         ]}
                       '';
                     };
-                  render = config: [
-                    (lib.mkIf (config.click-method != null) [
-                      (kdl.leaf "click-method" config.click-method)
-                    ])
-                  ];
-                }
-                {
-                  options.scroll-factor =
-                    nullable (
-                      types.either float-or-int (record {
-                        horizontal = optional float-or-int 1.0;
-                        vertical = optional float-or-int 1.0;
-                      })
-                    )
-                    // {
-                      description = ''
-                        For all scroll events triggered by a finger source, the scroll distance is multiplied by this factor.
+                    render = config: [
+                      (lib.mkIf (config.disabled-on-external-mouse) [
+                        (kdl.flag "disabled-on-external-mouse")
+                      ])
+                    ];
+                  }
+                  {
+                    options.tap-button-map =
+                      nullable (enum [
+                        "left-middle-right"
+                        "left-right-middle"
+                      ])
+                      // {
+                        description = ''
+                          The mouse button to register when tapping with 1, 2, or 3 fingers, when ${fmt.link-opt (subopts (subopts toplevel-options.input).touchpad).tap} is enabled.
 
-                        This is not a libinput property, but rather a niri-specific one.
-                      '';
-                    };
-                  render = config: [
-                    (lib.mkIf (config.scroll-factor != null) [
-                      (kdl.leaf "scroll-factor" config.scroll-factor)
-                    ])
-                  ];
-                }
-              ]
-            );
+                          Further reading:
+                          ${fmt.list [
+                            (libinput-link "configuration" "Tap-to-click")
+                          ]}
+                        '';
+                      };
+                    render = config: [
+                      (lib.mkIf (config.tap-button-map != null) [
+                        (kdl.leaf "tap-button-map" config.tap-button-map)
+                      ])
+                    ];
+                  }
+                  {
+                    options.click-method =
+                      nullable (enum [
+                        "button-areas"
+                        "clickfinger"
+                      ])
+                      // {
+                        description = ''
+                          Method to determine which mouse button is pressed when you click the touchpad.
+
+                          ${fmt.list [
+                            ''
+                              ${fmt.code ''"button-areas"''}: ${libinput-doc "clickpad-softbuttons" "Software button areas"} \
+                              The button is determined by which part of the touchpad was clicked.
+                            ''
+                            ''
+                              ${fmt.code ''"clickfinger"''}: ${libinput-doc "clickpad-softbuttons" "Clickfinger behavior"} \
+                              The button is determined by how many fingers clicked.
+                            ''
+                          ]}
+
+                          Further reading:
+                          ${fmt.list [
+                            (libinput-link "configuration" "Click method")
+                            (libinput-link "clickpad-softbuttons" "Clickpad software button behavior")
+                          ]}
+                        '';
+                      };
+                    render = config: [
+                      (lib.mkIf (config.click-method != null) [
+                        (kdl.leaf "click-method" config.click-method)
+                      ])
+                    ];
+                  }
+                  {
+                    options.scroll-factor =
+                      nullable (
+                        types.either float-or-int (record {
+                          horizontal = optional float-or-int 1.0;
+                          vertical = optional float-or-int 1.0;
+                        })
+                      )
+                      // {
+                        description = ''
+                          For all scroll events triggered by a finger source, the scroll distance is multiplied by this factor.
+
+                          This is not a libinput property, but rather a niri-specific one.
+                        '';
+                      };
+                    render = config: [
+                      (lib.mkIf (config.scroll-factor != null) [
+                        (kdl.leaf "scroll-factor" config.scroll-factor)
+                      ])
+                    ];
+                  }
+                ]
+              )
+              // {
+                default = { };
+              };
             mouse = pointer-like-section "mouse" (
               basic-pointer false
               ++ [

@@ -790,14 +790,12 @@ in
         options.warp-mouse-to-focus = lib.mkOption {
           description = ''
             Warp the mouse to the focused window when switching focus.
-
-            Note that there is no way to set ${fmt.code "enable = false;"}. If any config file enables this, it cannot be disabled by a later file.
           '';
           default = null;
           type = lib.types.nullOr (record {
             enable = lib.mkOption {
               default = true;
-              type = lib.types.enum [ true ];
+              type = lib.types.bool;
             };
             mode = lib.mkOption {
               default = null;
@@ -818,7 +816,7 @@ in
           });
         };
         render = config: [
-          (lib.mkIf (config.warp-mouse-to-focus != null) [
+          (lib.mkIf (config.warp-mouse-to-focus != null && config.warp-mouse-to-focus.enable) [
             (kdl.leaf "warp-mouse-to-focus" (
               lib.optionalAttrs (config.warp-mouse-to-focus.mode != null) {
                 inherit (config.warp-mouse-to-focus) mode;
@@ -831,15 +829,13 @@ in
         options.focus-follows-mouse = lib.mkOption {
           description = ''
             Focus the window under the mouse when the mouse moves.
-
-            Note that there is no way to set ${fmt.code "enable = false;"}. If any config file enables this, it cannot be disabled by a later file.
           '';
 
           default = null;
           type = lib.types.nullOr (record {
             enable = lib.mkOption {
               default = true;
-              type = lib.types.enum [ true ];
+              type = lib.types.bool;
             };
             max-scroll-amount = lib.mkOption {
               default = null;
@@ -851,7 +847,7 @@ in
           });
         };
         render = config: [
-          (lib.mkIf (config.focus-follows-mouse != null) [
+          (lib.mkIf (config.focus-follows-mouse != null && config.focus-follows-mouse.enable) [
             (kdl.leaf "focus-follows-mouse" (
               lib.optionalAttrs (config.focus-follows-mouse.max-scroll-amount != null) {
                 inherit (config.focus-follows-mouse) max-scroll-amount;

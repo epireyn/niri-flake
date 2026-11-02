@@ -1117,11 +1117,9 @@ Further reading:
 
 Warp the mouse to the focused window when switching focus.
 
-Note that there is no way to set `enable = false;`. If any config file enables this, it cannot be disabled by a later file.
-
 
 ## `programs.niri.settings.input.warp-mouse-to-focus.enable`
-- type: `value true (singular enum)`
+- type: `boolean`
 - default: `true`
 
 
@@ -1142,11 +1140,9 @@ When `mode = "center-xy-always";`, the mouse will always warp to the center of t
 
 Focus the window under the mouse when the mouse moves.
 
-Note that there is no way to set `enable = false;`. If any config file enables this, it cannot be disabled by a later file.
-
 
 ## `programs.niri.settings.input.focus-follows-mouse.enable`
-- type: `value true (singular enum)`
+- type: `boolean`
 - default: `true`
 
 

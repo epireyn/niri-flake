@@ -721,7 +721,7 @@ in
                   ];
                 }
               ]
-            );
+            ) // { default = { }; };
             mouse = pointer-like-section "mouse" (
               basic-pointer false
               ++ [

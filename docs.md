@@ -1120,8 +1120,9 @@ Warp the mouse to the focused window when switching focus.
 
 ## `programs.niri.settings.input.warp-mouse-to-focus.enable`
 - type: `boolean`
-- default: `true`
+- default: `false`
 
+Whether to enable warping mouse to focus.
 
 ## `programs.niri.settings.input.warp-mouse-to-focus.mode`
 - type: `null or one of "center-xy", "center-xy-always"`
@@ -1143,8 +1144,9 @@ Focus the window under the mouse when the mouse moves.
 
 ## `programs.niri.settings.input.focus-follows-mouse.enable`
 - type: `boolean`
-- default: `true`
+- default: `false`
 
+Whether to enable the focus following the mouse.
 
 ## `programs.niri.settings.input.focus-follows-mouse.max-scroll-amount`
 - type: `null or string`

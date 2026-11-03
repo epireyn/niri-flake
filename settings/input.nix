@@ -793,10 +793,7 @@ in
           '';
           default = null;
           type = lib.types.nullOr (record {
-            enable = lib.mkOption {
-              default = true;
-              type = lib.types.bool;
-            };
+            enable = lib.mkEnableOption "warping mouse to focus";
             mode = lib.mkOption {
               default = null;
               type = lib.types.nullOr (
@@ -833,10 +830,7 @@ in
 
           default = null;
           type = lib.types.nullOr (record {
-            enable = lib.mkOption {
-              default = true;
-              type = lib.types.bool;
-            };
+            enable = lib.mkEnableOption "the focus following the mouse";
             max-scroll-amount = lib.mkOption {
               default = null;
               type = lib.types.nullOr types.str;

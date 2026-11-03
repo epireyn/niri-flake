@@ -158,7 +158,7 @@
           settings-module = import ./settings.nix {
             inherit (nixpkgs) lib;
             inherit kdl;
-            fmt = settings-fmt.gfm;
+            inherit (settings-fmt.gfm) fmt;
           };
           git-hashes = cargo-lock.generate-hashes [
             inputs.niri-stable

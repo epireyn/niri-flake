@@ -394,20 +394,27 @@
               ]
               ++ modules;
             }).config.system.build.toplevel;
+          eval-niri-modules =
+            modules:
+            nixpkgs.lib.evalModules {
+              modules = modules ++ [
+                self.lib.internal.settings-module
+                {
+                  config._module.args.pkgs = inputs.nixpkgs.legacyPackages.${system};
+                }
+              ];
+            };
+
         in
         {
           cached-packages = cached-packages-for system;
           empty-config-valid-stable =
             let
-              eval = nixpkgs.lib.evalModules {
-                modules = [
-                  self.lib.internal.settings-module
-                  {
-                    config._module.args.pkgs = inputs.nixpkgs.legacyPackages.${system};
-                    config.programs.niri.settings = { };
-                  }
-                ];
-              };
+              eval = eval-niri-modules [
+                {
+                  config.programs.niri.settings = { };
+                }
+              ];
             in
             validated-config-for inputs.nixpkgs.legacyPackages.${system} self.packages.${system}.niri-stable
               eval.config.programs.niri.finalConfig;
@@ -430,6 +437,15 @@
             niri-flake = self;
             inherit system;
           };
+
+          option-documentation =
+            let
+              doc-bundle = inputs.nixpkgs.legacyPackages.${system}.nixosOptionsDoc {
+                inherit (eval-niri-modules [ ]) options;
+                warningsAreErrors = false;
+              };
+            in
+            doc-bundle.optionsJSON;
         }
       );
     };

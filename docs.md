@@ -3150,6 +3150,8 @@ The name of the workspace. You set this manually if you want the keys to be orde
 
 The name of the output the workspace should be assigned to.
 
+[Unstable] Also supports lists. If the first output is not connected, the workspace will open on the second output, and so on. The output order is reevaluated whenever outputs connect or disconnect. Connecting a higher-priority output will move the workspace there.
+
 > [!important]
 > This option is not yet available in stable niri.
 > 
@@ -3157,8 +3159,6 @@ The name of the output the workspace should be assigned to.
 > 
 > Otherwise, your system might fail to build.
 
-
-Also supports lists. If the first output is not connected, the workspace will open on the second output, and so on. The output order is reevaluated whenever outputs connect or disconnect. Connecting a higher-priority output will move the workspace there.
 
 
 <!-- programs.niri.settings.workspaces.<name>.layout -->

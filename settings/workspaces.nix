@@ -86,9 +86,9 @@ in
                   description = ''
                     The name of the output the workspace should be assigned to.
 
+                    [Unstable] Also supports lists. If the first output is not connected, the workspace will open on the second output, and so on. The output order is reevaluated whenever outputs connect or disconnect. Connecting a higher-priority output will move the workspace there.
+                    
                     ${unstable-note}
-
-                    Also supports lists. If the first output is not connected, the workspace will open on the second output, and so on. The output order is reevaluated whenever outputs connect or disconnect. Connecting a higher-priority output will move the workspace there.
                   '';
                 };
                 render = config: [

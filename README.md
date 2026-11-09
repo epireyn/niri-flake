@@ -81,7 +81,7 @@ But you can also pass it a string:
 
 or set `programs.niri.config = null;` to prevent this module from generating a config file. By default, it will generate a config file based on `programs.niri.settings` if it is not `null`.
 
-For debugging (primarily development of this flake I guess), there is also `programs.niri.finalConfig` which is always a string (or null) and represents the final config file that will be end up in your config directory.
+For debugging (primarily development of this flake I guess), there is also `programs.niri.finalConfigFile` which is always a store path (or null) that points to the final config file that will be end up in your config directory.
 
 > [!note]
 > `programs.niri.settings` is not guaranteed to be compatible with niri versions other than the two provided by this flake. \

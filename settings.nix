@@ -52,18 +52,16 @@ in
       '';
     };
 
-    finalConfig = mkOption {
-      type = types.nullOr types.str;
+    finalConfigFile = mkOption {
+      type = types.nullOr (types.pathWith { inStore = true; });
       default =
         if builtins.isString cfg.config then
           cfg.config
         else if cfg.config != null then
           if config._module.args ? pkgs then
-            builtins.readFile (
-              pkgs.callPackage kdl.generator {
-                document = cfg.config;
-              }
-            )
+            pkgs.callPackage kdl.generator {
+              document = cfg.config;
+            }
           else
             ''
               invalid // mock instantiation of this module. unable to generate configuration.
@@ -73,9 +71,9 @@ in
       readOnly = true;
       defaultText = null;
       description = ''
-        The final niri config file contents.
+        The final niri config file path.
 
-        This is a string that reflects the document stored in ${fmt.link-opt options.programs.niri.config}.
+        This is either a relative path or a derivation. The default value is a derivation generated from ${fmt.link-opt options.programs.niri.config}.
 
         It is exposed mainly for debugging purposes, such as when you need to inspect how a certain option affects the resulting config file.
       '';

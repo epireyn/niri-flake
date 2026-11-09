@@ -65,13 +65,11 @@
         pkgs: package: config:
         pkgs.runCommand "config.kdl"
           {
-            inherit config;
-            passAsFile = [ "config" ];
             buildInputs = [ package ];
           }
           ''
-            niri validate -c $configPath
-            cp $configPath $out
+            niri validate -c ${config}
+            cp ${config} $out
           '';
 
       make-package-set =
@@ -249,9 +247,9 @@
             };
 
           config.xdg.configFile.niri-config = {
-            enable = cfg.finalConfig != null;
+            enable = cfg.finalConfigFile != null;
             target = "niri/config.kdl";
-            source = validated-config-for pkgs cfg.package cfg.finalConfig;
+            source = validated-config-for pkgs cfg.package cfg.finalConfigFile;
           };
 
           disabledModules = [ "services/window-managers/niri.nix" ];
@@ -417,7 +415,7 @@
               ];
             in
             validated-config-for inputs.nixpkgs.legacyPackages.${system} self.packages.${system}.niri-stable
-              eval.config.programs.niri.finalConfig;
+              eval.config.programs.niri.finalConfigFile;
 
           nixos-unstable = test-nixos-for nixpkgs [
             self.nixosModules.niri

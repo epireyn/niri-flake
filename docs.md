@@ -211,12 +211,12 @@ The niri config file.
 By default, this is a KDL document that reflects the settings in [`programs.niri.settings`](#programsnirisettings).
 
 
-## `programs.niri.finalConfig`
-- type: `null or string`
+## `programs.niri.finalConfigFile`
+- type: `null or path in the Nix store`
 
-The final niri config file contents.
+The final niri config file path.
 
-This is a string that reflects the document stored in [`programs.niri.config`](#programsniriconfig).
+This is either a relative path or a derivation. The default value is a derivation generated from [`programs.niri.config`](#programsniriconfig).
 
 It is exposed mainly for debugging purposes, such as when you need to inspect how a certain option affects the resulting config file.
 

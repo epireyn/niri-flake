@@ -216,7 +216,7 @@ By default, this is a KDL document that reflects the settings in [`programs.niri
 
 The final niri config file path.
 
-This is either a relative path or a derivation. The default value is a derivation generated from [`programs.niri.config`](#programsniriconfig).
+This is a store path leading to a derivation generated from [`programs.niri.config`](#programsniriconfig).
 
 It is exposed mainly for debugging purposes, such as when you need to inspect how a certain option affects the resulting config file.
 

@@ -56,7 +56,7 @@ in
       type = types.nullOr (types.pathWith { inStore = true; });
       default =
         if builtins.isString cfg.config then
-          cfg.config
+          pkgs.writeText "config.kdl" cfg.config
         else if cfg.config != null then
           if config._module.args ? pkgs then
             pkgs.callPackage kdl.generator {
@@ -73,7 +73,7 @@ in
       description = ''
         The final niri config file path.
 
-        This is either a relative path or a derivation. The default value is a derivation generated from ${fmt.link-opt options.programs.niri.config}.
+        This is a store path leading to a derivation generated from ${fmt.link-opt options.programs.niri.config}.
 
         It is exposed mainly for debugging purposes, such as when you need to inspect how a certain option affects the resulting config file.
       '';

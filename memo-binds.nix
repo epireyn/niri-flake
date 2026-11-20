@@ -56,7 +56,6 @@
   "move-column-to-last"
   "move-column-left-or-to-monitor-left"
   "move-column-right-or-to-monitor-right"
-  "move-column-to-index"
   "move-window-down"
   "move-window-up"
   "move-window-down-or-to-workspace-down"

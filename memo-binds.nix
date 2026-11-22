@@ -26,7 +26,6 @@
   "set-windowed-fullscreen"
   "unset-windowed-fullscreen"
   "focus-window-in-column"
-  "focus-window-previous"
   "focus-column-left"
   "focus-column-right"
   "focus-column-first"
